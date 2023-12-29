@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap&text=1234567890');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    font-family: 'JetBrains Mono', 'Noto Sans JP', system-ui, sans-serif;
+    font-synthesis: none;
+    line-height: 1.5;
+
+    /* color-scheme: light dark; */
+    --color-white: 255 255 255;
+    --color-black: 107 107 107; /* 6b6b6b */
+    --color-gray-surface: 248 248 248; /* f8f8f8 */
+    --color-gray-light: 242 242 242; /* f2f2f2 */
+    --color-gray-base: 102 102 102; /* c0c0c0 */
+    --color-gray-dark: 103 103 103; /* 676767 */
+    --color-gray-outline: 102 102 102;
+
+    --color-primary: 178 255 223; /* b2ffdf */
+    --color-secondary: 248 167 156; /* f8a79c */
+    --color-error: 248 104 104; /* f86868 */
+
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    color: rgb(var(--color-black));
+    background-color: rgb(var(--color-gray-surface) / 1);
+  }
+}
+
+@layer components {
+  :root {
+    --grad-sky-light: linear-gradient(
+      214deg,
+      rgba(78, 140, 213, 0.6) 43%,
+      rgba(246, 131, 116, 0.18) 84%
+    );
+  }
+}

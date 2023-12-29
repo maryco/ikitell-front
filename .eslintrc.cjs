@@ -32,21 +32,21 @@ module.exports = {
     'import/order': [
       'warn',
       {
-        'groups': ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object', 'type'],
+        groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object', 'type'],
         'newlines-between': 'never',
-        'pathGroupsExcludedImportTypes': ['builtin'],
-        'alphabetize': { 'order': 'asc', 'caseInsensitive': true },
-        'pathGroups': [
+        pathGroupsExcludedImportTypes: ['builtin'],
+        alphabetize: { order: 'asc', caseInsensitive: true },
+        pathGroups: [
           {
-            "pattern": "$app/**",
-            "group": "internal",
-            "position": "before"
-          }
-        ]
-      }
-    ]
+            pattern: '$app/**',
+            group: 'internal',
+            position: 'before',
+          },
+        ],
+      },
+    ],
   },
   settings: {
-    'import/resolver': { 'typescript': true },
-  }
+    'import/resolver': { typescript: true },
+  },
 }
