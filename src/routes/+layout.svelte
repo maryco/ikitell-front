@@ -5,7 +5,9 @@
   import { ThemeSwitch } from '$lib/widgets/theme-switch'
 
   let isRoot = false
+  let showNav = true
   $: isRoot = $page.url?.pathname === '/'
+  $: showNav = $page.url?.pathname !== '/login'
 
   const styles = {
     bgBase: 'flex min-h-screen w-screen flex-col bg-gray-surface',
@@ -14,13 +16,15 @@
   }
 </script>
 
-<main class={styles.bgBase} class:__root={isRoot} class:__dark={isRoot && $isDarkMode}>
-  <nav class={`${styles.navBase} ${isRoot ? '' : styles.navApp}`}>
-    {#if isRoot}
-      <AnchorButton to={'/login'} text={'Log in'} />
-    {/if}
-    <ThemeSwitch />
-  </nav>
+<main class={styles.bgBase} class:--root={isRoot} class:--dark={isRoot && $isDarkMode}>
+  {#if showNav}
+    <nav class={`${styles.navBase} ${isRoot ? '' : styles.navApp}`}>
+      {#if isRoot}
+        <AnchorButton to={'/login'} text={'Log in'} />
+      {/if}
+      <ThemeSwitch />
+    </nav>
+  {/if}
   <slot />
 </main>
 
@@ -28,36 +32,35 @@
   :root {
     --grad-hero-light: linear-gradient(
       179deg,
-      rgba(101, 134, 247, 0.3) 10%,
-      rgba(215, 114, 82, 0.3) 87%
+      rgba(101 134 247 / 0.3) 10%,
+      rgba(215 114 82 / 0.3) 87%
     );
-    --grad-hero-dark: linear-gradient(185deg, rgba(23, 39, 95, 0.6) 33%, rgba(116, 28, 1, 0.6) 86%);
+    --grad-hero-dark: linear-gradient(185deg, rgba(23 39 95 / 0.6) 33%, rgba(116 28 1 / 0.6) 86%);
   }
 
-  .__root {
+  .--root {
     background:
       var(--grad-hero-light),
       theme(backgroundImage.sky-sm) left/cover;
     background-blend-mode: lighten, normal;
-  }
-  .__dark {
-    background:
-      var(--grad-hero-dark),
-      theme(backgroundImage.sky-sm) left/cover;
-    background-blend-mode: darken, normal;
-  }
 
-  @media screen('md') {
-    .__root {
+    @media screen('md') {
       background:
         var(--grad-hero-light),
         theme(backgroundImage.sky-lg) left/cover;
     }
-    .__dark {
+  }
+
+  .--dark {
+    background:
+      var(--grad-hero-dark),
+      theme(backgroundImage.sky-sm) left/cover;
+    background-blend-mode: darken, normal;
+
+    @media screen('md') {
       background:
         var(--grad-hero-dark),
         theme(backgroundImage.sky-lg) left/cover;
-      background-blend-mode: darken, normal;
     }
   }
 </style>

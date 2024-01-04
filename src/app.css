@@ -12,19 +12,26 @@
     line-height: 1.5;
 
     /* color-scheme: light dark; */
+
+    /* color base */
+
     --color-white: 255 255 255;
     --color-black: 107 107 107; /* 6b6b6b */
     --color-gray-surface: 248 248 248; /* f8f8f8 */
     --color-gray-light: 242 242 242; /* f2f2f2 */
     --color-gray-base: 102 102 102; /* c0c0c0 */
     --color-gray-dark: 103 103 103; /* 676767 */
-    --color-gray-outline: 102 102 102;
+    --color-gray-outline: 208 215 222; /* d0d7de */
+
+    /*  color theme */
 
     --color-primary: 178 255 223; /* b2ffdf */
+    --color-primary-300: 75 249 188; /* 4bf9bc */
+    --color-primary-700: 0 199 127; /* 00c77f */
     --color-secondary: 248 167 156; /* f8a79c */
     --color-error: 248 104 104; /* f86868 */
 
-    text-rendering: optimizeLegibility;
+    text-rendering: optimizelegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -39,8 +46,7 @@
   :root {
     --grad-sky-light: linear-gradient(
       214deg,
-      rgba(78, 140, 213, 0.6) 43%,
-      rgba(246, 131, 116, 0.18) 84%
-    );
+      rgb(78 140 213 / 0.6) 43%,
+      rgb(246 131 116 / 0.18) 84%);
   }
 }

@@ -56,11 +56,12 @@
 
 <style class="postcss">
   .__hover_on:hover > span {
-    box-shadow: 0px 0px 8px rgb(var(--color-primary) / 0.7);
     background: rgb(var(--color-primary) / 0.7);
+    box-shadow: 0 0 8px rgb(var(--color-primary) / 0.7);
   }
+
   .__hover_off:hover > span {
-    box-shadow: 0px 0px 8px rgb(var(--color-secondary) / 0.7);
     background: rgb(var(--color-secondary) / 0.7);
+    box-shadow: 0 0 8px rgb(var(--color-secondary) / 0.7);
   }
 </style>

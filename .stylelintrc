@@ -1,0 +1,27 @@
+# https://github.com/stylelint/stylelint
+# https://www.npmjs.com/package/stylelint-config-html#cd-installation
+# 
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-html/svelte",
+    "stylelint-config-recess-order"
+  ],
+  "rules": {
+    "alpha-value-notation": null,
+    "selector-class-pattern": null, # classでkebab-case以外も許容
+    "value-keyword-case": null,
+    # https://stackoverflow.com/questions/72161637/unexpected-unknown-at-rule-tailwind-scss-at-rule-no-unknown
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "tailwind"
+        ]
+      }
+    ],
+    # with tailwindcss
+    "function-no-unknown": null,
+    "media-query-no-invalid": null
+  }
+}

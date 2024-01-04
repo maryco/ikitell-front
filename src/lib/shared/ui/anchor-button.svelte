@@ -13,7 +13,7 @@
 
 <style class="postcss">
   a:hover {
-    box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.8);
     background: var(--grad-sky-light);
+    box-shadow: 0 0 12px rgb(255 255 255 / 0.8);
   }
 </style>

@@ -14,7 +14,11 @@ export default {
           surface: 'rgb(var(--color-gray-surface) / 1)',
           outline: 'rgb(var(--color-gray-outline) / 1)',
         },
-        primary: 'rgb(var(--color-primary) / 1)',
+        primary: {
+          0: 'rgb(var(--color-primary) / 1)',
+          300: 'rgb(var(--color-primary-300) / 1)',
+          700: 'rgb(var(--color-primary-700) / 1)',
+        },
         secondary: 'rgb(var(--color-secondary) / 1)',
         error: 'rgb(var(--color-error) / 1)',
       },
