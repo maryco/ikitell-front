@@ -1,9 +1,13 @@
 <script lang="ts">
-  import { settingStore, isDarkMode, COLOR_SCHEMES } from '$lib/entities/setting'
+  import { appSettingStore, isDarkMode, COLOR_SCHEMES } from '$lib/entities/app-state'
   import { IconMoon, IconSun, SwitchRadio } from '$lib/shared/ui'
 
+  export let size: 'sm' | 'md' | 'lg' = 'md'
+  export let iconSize = 24
+  export let theme: 'dark' | 'light' | null = null
+
   function changeToDarkMode(e: { currentTarget: HTMLInputElement }) {
-    settingStore.updateTheme(e.currentTarget.value)
+    appSettingStore.updateTheme(e.currentTarget.value)
   }
 </script>
 
@@ -12,7 +16,9 @@
   changeHandler={changeToDarkMode}
   onValue={COLOR_SCHEMES.dark}
   isOn={$isDarkMode}
+  theme={theme ?? ($isDarkMode ? 'dark' : 'light')}
+  {size}
 >
-  <IconMoon slot="iconOn" />
-  <IconSun slot="iconOff" />
+  <IconMoon slot="iconOn" size={iconSize} />
+  <IconSun slot="iconOff" size={iconSize} />
 </SwitchRadio>

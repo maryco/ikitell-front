@@ -1,32 +1,34 @@
 <script lang="ts">
   import { page } from '$app/stores'
-  import { isDarkMode } from '$lib/entities/setting'
+  import { isDarkMode } from '$lib/entities/app-state'
   import { AnchorButton } from '$lib/shared/ui'
+  import { SpinnerDialog } from '$lib/widgets/modal'
   import { ThemeSwitch } from '$lib/widgets/theme-switch'
 
   let isRoot = false
-  let showNav = true
+  let showHeaderNav = true
   $: isRoot = $page.url?.pathname === '/'
-  $: showNav = $page.url?.pathname !== '/login'
+  $: showHeaderNav = $page.url?.pathname !== '/login'
 
   const styles = {
     bgBase: 'flex min-h-screen w-screen flex-col bg-gray-surface',
-    navBase: 'flex h-20 w-full justify-end gap-x-3 p-5',
+    navBase: 'flex h-20 w-full items-center justify-end gap-x-3 p-5',
     navApp: 'bg-gray-light border border-b-[gray-outline]',
   }
 </script>
 
 <main class={styles.bgBase} class:--root={isRoot} class:--dark={isRoot && $isDarkMode}>
-  {#if showNav}
+  {#if showHeaderNav}
     <nav class={`${styles.navBase} ${isRoot ? '' : styles.navApp}`}>
       {#if isRoot}
         <AnchorButton to={'/login'} text={'Log in'} />
       {/if}
-      <ThemeSwitch />
+      <ThemeSwitch theme={`dark`} />
     </nav>
   {/if}
   <slot />
 </main>
+<SpinnerDialog />
 
 <style lang="postcss">
   :root {

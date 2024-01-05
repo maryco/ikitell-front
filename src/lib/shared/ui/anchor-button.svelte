@@ -1,14 +1,31 @@
 <script lang="ts">
+  import { isDarkMode } from '$lib/entities/app-state'
+  import type { UiSizes } from '.'
+
   export let to: string
   export let text: string
-  // TODO: theme, size
+  export let size: UiSizes = 'md'
+  // TODO: theme
+
+  const applySize: Record<UiSizes, string> = {
+    sm: 'h-8', // 32px
+    md: 'h-11', // 44px
+    lg: 'h-12', // 48px
+  }
+
+  const applyTheme = {
+    
+  }
+
 </script>
 
 <a
-  class="relative grid h-11 place-content-center rounded-xl border border-white bg-white/[0.15] px-12 text-center text-white transition-shadow duration-300"
+  class={`grid ${applySize[size]} place-content-center rounded-xl
+    border border-white bg-white/15
+    px-12 text-center text-white transition-shadow duration-300`}
   href={to}
 >
-  <span>{text}</span><slot name="icon" />
+  <span>{text}</span>
 </a>
 
 <style class="postcss">

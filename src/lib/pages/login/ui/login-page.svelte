@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { quartInOut, quartIn } from 'svelte/easing'
+  import { quartInOut } from 'svelte/easing'
   import { fly } from 'svelte/transition'
   import { LoginForm } from '$lib/features/authenticate'
 
-  // TODO: Y方向にずれる
+  // FIXME: outを指定するとY=0から始まるため指定しない
   // out:fly={{ x: '100vh', easing: quartIn }}
 </script>
 

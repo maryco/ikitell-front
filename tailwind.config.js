@@ -10,6 +10,7 @@ export default {
         gray: {
           base: 'rgb(var(--color-gray-base) / 1)',
           light: 'rgb(var(--color-gray-light) / 1)',
+          mid: 'rgb(var(--color-gray-mid) / 1)',
           dark: 'rgb(var(--color-gray-dark) / 1)',
           surface: 'rgb(var(--color-gray-surface) / 1)',
           outline: 'rgb(var(--color-gray-outline) / 1)',
@@ -19,7 +20,11 @@ export default {
           300: 'rgb(var(--color-primary-300) / 1)',
           700: 'rgb(var(--color-primary-700) / 1)',
         },
-        secondary: 'rgb(var(--color-secondary) / 1)',
+        secondary: {
+          0: 'rgb(var(--color-secondary) / 1)',
+          500: 'rgb(var(--color-secondary-500) / 1)',
+          700: 'rgb(var(--color-secondary-700) / 1)',
+        },
         error: 'rgb(var(--color-error) / 1)',
       },
       backgroundImage: {
