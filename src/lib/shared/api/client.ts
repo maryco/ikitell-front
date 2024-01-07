@@ -6,30 +6,72 @@ const hasNoContent = (code: number): boolean => {
   return code === HttpStatusCode.NoContent
 }
 
+/**
+ *
+ * @param response
+ * @param data
+ * @param error
+ * @returns
+ */
+function makeResponse<T>(response: Response | undefined, data?: T, error?: Error | undefined) {
+  const statusCode = response?.status ?? +HttpStatusCode.InternalServerError
+  if (!response || error instanceof Error) {
+    return {
+      response: new Response(null, {
+        status: statusCode,
+        statusText: `${error}`,
+      }),
+      data: data,
+    }
+  } else {
+    return {
+      response: response,
+      data: data,
+    }
+  }
+}
+
 const defaultHeader = {
   'Content-Type': 'application/json',
   Accept: 'application/json',
   Origin: `${PUBLIC_FRONT_URL}`,
 }
 
+/**
+ *
+ * @param path
+ * @param config
+ * @returns
+ */
 async function http<T>(path: string, config: RequestInit): Promise<T> {
   const url = path.startsWith('http') ? path : `${PUBLIC_API_URL}/${path}`
   const request = new Request(url, config)
-  const response = await fetch(request)
+  try {
+    const response = await fetch(request)
 
-  if (!response.ok) {
-    // TODO
-    console.error(`Error: status ${response.status} | message ${response.statusText}`)
+    if (!response.ok) {
+      // TODO 404, 500 etc...
+      // console.error(`Error: status ${response.status} | message ${response.statusText}`)
+      return makeResponse(response) as T
+    }
+
+    if (hasNoContent(response.status)) {
+      return makeResponse(response) as T
+    }
+
+    const data = await response.json()
+    return makeResponse(response, data) as T
+    // return { response: response, data: data } as T
+  } catch (e: unknown) {
+    console.error(`Fetch error: ${e}`)
+    return makeResponse(undefined, undefined, e instanceof Error ? e : undefined) as T
   }
-
-  if (hasNoContent(response.status)) {
-    return {} as T
-  }
-
-  const data = await response.json()
-  return { response: response, data: data } as T
 }
 
+/**
+ *
+ * @returns
+ */
 function prepareHeaderWithCsrf(): HeadersInit {
   const cookies = document.cookie.split('; ')
   const xsrf = cookies.find((c) => c.startsWith('XSRF-TOKEN=')) || ''
@@ -39,11 +81,18 @@ function prepareHeaderWithCsrf(): HeadersInit {
   }
 }
 
+/**
+ *
+ * @param path
+ * @param payload
+ * @param _init
+ * @returns
+ */
 export async function postWithCsrf<T, U>(
   path: string,
   payload: T,
   _init?: RequestInit,
-): Promise<U> {
+): Promise<U | undefined> {
   await tokenApi.getCsrf()
   const init = {
     method: 'post',
@@ -56,6 +105,13 @@ export async function postWithCsrf<T, U>(
   return await http<U>(path, init)
 }
 
+/**
+ *
+ * @param path
+ * @param payload
+ * @param _init
+ * @returns
+ */
 export async function post<T, U>(path: string, payload: T, _init?: RequestInit): Promise<U> {
   const init = {
     method: 'post',
@@ -68,6 +124,12 @@ export async function post<T, U>(path: string, payload: T, _init?: RequestInit):
   return await http<U>(path, init)
 }
 
+/**
+ *
+ * @param path
+ * @param _init
+ * @returns
+ */
 export async function get<T>(path: string, _init?: RequestInit): Promise<T> {
   const init = {
     method: 'get',
