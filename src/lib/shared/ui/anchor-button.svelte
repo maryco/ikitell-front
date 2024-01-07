@@ -1,36 +1,31 @@
 <script lang="ts">
-  import { isDarkMode } from '$lib/entities/app-state'
-  import type { UiSizes } from '.'
+  import ClickableContainer from './clickable-container.svelte'
+  import type { ButtonTheme, UiSizes } from '.'
 
   export let to: string
   export let text: string
+  export let replaceState = false
+  export let disabled = false
   export let size: UiSizes = 'md'
-  // TODO: theme
-
-  const applySize: Record<UiSizes, string> = {
-    sm: 'h-8', // 32px
-    md: 'h-11', // 44px
-    lg: 'h-12', // 48px
-  }
-
-  const applyTheme = {
-    
-  }
-
+  export let theme: 'primary' | 'secondary' | 'transparent' | ButtonTheme = 'primary'
+  export let noShadow = false
+  export let modifireClass: string = ''
 </script>
 
-<a
-  class={`grid ${applySize[size]} place-content-center rounded-xl
-    border border-white bg-white/15
-    px-12 text-center text-white transition-shadow duration-300`}
-  href={to}
->
-  <span>{text}</span>
-</a>
+<ClickableContainer {size} {theme} {noShadow} {modifireClass}>
+  <a
+    class={`__clickable z-10 grid cursor-pointer place-items-center rounded-2xl px-button-x text-center font-medium leading-none
+    focus-visible:outline-none aria-disabled:cursor-not-allowed`}
+    href={!disabled ? to : '#'}
+    data-sveltekit-replacestate={replaceState}
+    aria-disabled={disabled}
+  >
+    <span class={`${modifireClass}`}>{text}</span>
+  </a>
+</ClickableContainer>
 
-<style class="postcss">
-  a:hover {
-    background: var(--grad-sky-light);
-    box-shadow: 0 0 12px rgb(255 255 255 / 0.8);
+<style lang="postcss">
+  .--top {
+    color: rgb(var(--color-white) / 1);
   }
 </style>

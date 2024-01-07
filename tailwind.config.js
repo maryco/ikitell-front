@@ -10,19 +10,19 @@ export default {
         gray: {
           base: 'rgb(var(--color-gray-base) / 1)',
           light: 'rgb(var(--color-gray-light) / 1)',
-          mid: 'rgb(var(--color-gray-mid) / 1)',
           dark: 'rgb(var(--color-gray-dark) / 1)',
           surface: 'rgb(var(--color-gray-surface) / 1)',
+          'surface-dark': 'rgb(var(--color-gray-surface-dark) / 1)',
           outline: 'rgb(var(--color-gray-outline) / 1)',
         },
         primary: {
           0: 'rgb(var(--color-primary) / 1)',
-          300: 'rgb(var(--color-primary-300) / 1)',
-          700: 'rgb(var(--color-primary-700) / 1)',
+          600: 'rgb(var(--color-primary-600) / 1)',
+          900: 'rgb(var(--color-primary-900) / 1)',
         },
         secondary: {
           0: 'rgb(var(--color-secondary) / 1)',
-          500: 'rgb(var(--color-secondary-500) / 1)',
+          300: 'rgb(var(--color-secondary-300) / 1)',
           700: 'rgb(var(--color-secondary-700) / 1)',
         },
         error: 'rgb(var(--color-error) / 1)',
@@ -30,6 +30,9 @@ export default {
       backgroundImage: {
         'sky-sm': "url('/images/bg_topSmall.png')",
         'sky-lg': "url('/images/bg_topLarge.png')",
+      },
+      padding: {
+        'button-x': '42px',
       },
     },
   },

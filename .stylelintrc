@@ -13,5 +13,8 @@
       # with tailwindcss
       'function-no-unknown': null,
       'media-query-no-invalid': null,
+      # https://github.com/callstack/linaria/issues/443#issuecomment-723722246
+      # > Unexpected unknown pseudo-class selector ":global"
+      'selector-pseudo-class-no-unknown': [true, { 'ignorePseudoClasses': ['global'] }],
     },
 }

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
   import { watchEmptyAction } from '../action'
-  import { ClearButton } from '.'
+  import { ClearButton, IconProhibited } from '.'
 
   export let type: 'text' | 'password'
   export let name: string
@@ -10,6 +10,8 @@
   export let placeholder = label
   export let errors: string | string[] | undefined
   export let showError = true
+  export let readonly = false
+  export let disabled = false
 
   const dispatch = createEventDispatcher()
 
@@ -25,7 +27,7 @@
 
 <fieldset class="c-fieldset *:text-nowrap">
   {#if label}
-    <label for={id}>{label}</label>
+    <label for={id} class="dark:text-gray-light">{label}</label>
   {/if}
   <div class="c-fieldset__input-weapper *:h-full">
     <input
@@ -34,10 +36,22 @@
       {id}
       {type}
       {name}
-      class="peer w-full rounded-lg border border-gray-outline pl-4 pr-10 outline-none transition-shadow"
+      class={`peer w-full rounded-lg border border-gray-outline pl-4 pr-10 outline-none transition-shadow 
+        read-only:border-transparent disabled:bg-gray-outline dark:bg-gray-dark 
+        dark:text-gray-light dark:disabled:text-gray-dark`}
       {placeholder}
+      {readonly}
+      {disabled}
     />
-    <ClearButton clear={clearInput} />
+    {#if readonly}
+      <i
+        aria-label="It's read only"
+        class="absolute right-0 top-0 flex items-center pr-2 outline-none *:rounded-full *:text-gray-dark/50 *:dark:text-gray-light"
+        ><IconProhibited /></i
+      >
+    {:else}
+      <ClearButton clear={clearInput} />
+    {/if}
   </div>
   {#if errors && showError}
     <p class="message overflow-hidden text-ellipsis whitespace-nowrap">{errors}</p>
@@ -86,8 +100,8 @@
       & input {
         border: solid 1px rgb(var(--color-gray-outline) / 0.45);
         box-shadow:
-          inset 0 0 6px rgb(var(--color-primary-700) / 0.15),
-          0 0 6px 2px rgb(var(--color-primary-300) / 0.15);
+          inset 0 0 6px rgb(var(--color-primary-900) / 0.15),
+          0 0 6px 2px rgb(var(--color-primary-600) / 0.15);
       }
     }
 

@@ -11,7 +11,7 @@
   $: showHeaderNav = $page.url?.pathname !== '/login'
 
   const styles = {
-    bgBase: 'flex min-h-screen w-screen flex-col bg-gray-surface',
+    bgBase: 'flex min-h-screen w-screen flex-col',
     navBase: 'flex h-20 w-full items-center justify-end gap-x-3 p-5',
     navApp: 'bg-gray-light border border-b-[gray-outline]',
   }
@@ -21,7 +21,13 @@
   {#if showHeaderNav}
     <nav class={`${styles.navBase} ${isRoot ? '' : styles.navApp}`}>
       {#if isRoot}
-        <AnchorButton to={'/login'} text={'Log in'} />
+        <AnchorButton
+          to={'/login'}
+          text={'Log in'}
+          theme={'transparent'}
+          modifireClass={'--top'}
+          noShadow={true}
+        />
       {/if}
       <ThemeSwitch theme={`dark`} />
     </nav>

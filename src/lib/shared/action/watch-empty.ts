@@ -13,11 +13,13 @@ export const watchEmpty: Action<HTMLInputElement> = (node: HTMLInputElement) => 
     }
   }
   node.addEventListener('input', toggleEmptyState)
+  node.addEventListener('focus', toggleEmptyState)
   toggleEmptyState()
 
   return {
     destroy: () => {
       node.removeEventListener('input', toggleEmptyState)
+      node.removeEventListener('focus', toggleEmptyState)
     },
   }
 }

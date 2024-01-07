@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { SWITCH_THEMES, type SwitchTheme } from './types/types'
+  import { SWITCH_THEMES, type SwitchTheme } from './types/theme'
   import type { UiSizes } from '.'
 
   export let name: string
@@ -21,12 +21,24 @@
 
   let onId = `${name}-on`
   let offId = `${name}-off`
+
+  const labelClassBase = 'grid h-full w-full cursor-pointer place-content-center'
+  const iconClassBase =
+    'grid size-[28px] place-content-center rounded-full transition-shadow *:size-[24px]'
+  const makeIconClass = (isActive: boolean) => {
+    let classes = [iconClassBase, applyTheme.icon.fill]
+    if (isActive) {
+      classes.push(applyTheme.icon.fillOn, applyTheme.icon.borderOn)
+    }
+    return classes.join(' ')
+  }
 </script>
 
 <fieldset
   class={`flex ${applySize[size]} min-w-[128px] items-center rounded-xl border ${applyTheme.border} ${applyTheme.bg}`}
 >
-  <div class="relative grid grow place-items-center border-r-2">
+  <!-- On -->
+  <div class="grid grow place-items-center border-r-2">
     <input
       {name}
       id={onId}
@@ -37,16 +49,11 @@
       class="appearance-none"
       on:change={changeHandler}
     />
-    <label for={onId} class="__hover_on grid h-full w-full cursor-pointer place-content-center"
-      ><span
-        class:border={isOn}
-        class={`grid size-[28px] place-content-center rounded-full 
-        ${applyTheme.border} ${applyTheme.fill} transition-shadow *:size-[24px]
-        ${!isOn ? '!' + applyTheme.fillOn : ''}`}
-        ><slot name="iconOn" /></span
-      ></label
+    <label for={onId} class={`--hover-on ${labelClassBase}`}
+      ><span class={`${makeIconClass(isOn)}`}><slot name="iconOn" /></span></label
     >
   </div>
+  <!-- Off -->
   <div class="grid grow place-items-center">
     <input
       {name}
@@ -58,25 +65,19 @@
       class="appearance-none"
       on:change={changeHandler}
     />
-    <label for={offId} class="__hover_off grid h-full w-full cursor-pointer place-content-center"
-      ><span
-        class:border={!isOn}
-        class={`grid size-[28px] place-content-center rounded-full 
-        ${applyTheme.border} ${applyTheme.fill} transition-shadow *:size-[24px] 
-        ${isOn ? '!' + applyTheme.fillOn : ''}`}
-        ><slot name="iconOff" /></span
-      ></label
+    <label for={offId} class={`--hover-off ${labelClassBase}`}
+      ><span class={`${makeIconClass(!isOn)}`}><slot name="iconOff" /></span></label
     >
   </div>
 </fieldset>
 
 <style class="postcss">
-  .__hover_on:hover > span {
+  .--hover-on:hover > span {
     background: rgb(var(--color-primary) / 0.7);
     box-shadow: 0 0 8px rgb(var(--color-primary) / 0.7);
   }
 
-  .__hover_off:hover > span {
+  .--hover-off:hover > span {
     background: rgb(var(--color-secondary) / 0.7);
     box-shadow: 0 0 8px rgb(var(--color-secondary) / 0.7);
   }
