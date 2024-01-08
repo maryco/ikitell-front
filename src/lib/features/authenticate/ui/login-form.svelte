@@ -4,7 +4,7 @@
   import * as zod from 'zod'
   import { goto } from '$app/navigation'
   import { authApi } from '$lib/shared/api'
-  import { FieldSetText, FormButton } from '$lib/shared/ui'
+  import { FieldSetText, Button } from '$lib/shared/ui'
   import { showSpinner } from '$lib/widgets/modal'
   import { loginSchema } from '../model/login-form-schema'
 
@@ -27,6 +27,7 @@
       if (res?.response.ok) {
         goto('dashboard', { replaceState: true })
       } else {
+        // TODO: Handle Error
         alert('Fails to login')
       }
     },
@@ -51,7 +52,9 @@
     on:clear={() => setFields('password', '', true)}
   />
   <div class="flex flex-col items-center space-y-6 pt-16 *:w-[280px]">
-    <FormButton type="submit" label="Log in" disabled={!$isValid} size="lg" theme="secondary" />
+    <Button type="submit" disabled={!$isValid} size={'lg'} theme={'primary'} clickHandler={() => {}}
+      >Log in</Button
+    >
     <slot name="cancel" />
   </div>
 </form>

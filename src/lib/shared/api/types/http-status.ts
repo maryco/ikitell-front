@@ -26,8 +26,4 @@ export const HttpStatusCode = {
   GatewayTimeout: 504,
 } as const
 
-export const isAuthError = (status: number) => {
-  return [+HttpStatusCode.Unauthorized, +HttpStatusCode.Forbidden].includes(status)
-}
-
 export type HttpStatusCode = (typeof HttpStatusCode)[keyof typeof HttpStatusCode]
