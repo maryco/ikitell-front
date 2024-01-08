@@ -1,19 +1,20 @@
 <script lang="ts">
-  import ClickableContainer from './clickable-container.svelte'
-  import { type ButtonTheme, type UiSizes } from './types/theme'
+  import { ClickableContainer } from '.'
+  import { BUTTON_SIZES, type ButtonTheme, type UiSizes } from './types/theme'
 
-  export let label: string
   export let disabled = false
   export let type: 'submit' | 'button' | 'reset' | null | undefined = 'button'
   export let size: UiSizes = 'md'
   export let theme: 'primary' | 'secondary' | 'transparent' | ButtonTheme = 'primary'
-  export let clickHandler: () => void | undefined = () => {}
+  export let clickHandler: () => void
+
+  const applySize = BUTTON_SIZES[size]
 
   let buttonElement: HTMLButtonElement
 
   function clickHandlerWrapper() {
     buttonElement.blur()
-    if (clickHandler) clickHandler()
+    clickHandler()
   }
 </script>
 
@@ -21,11 +22,11 @@
   <button
     bind:this={buttonElement}
     {type}
-    class={`__clickable z-10 cursor-pointer rounded-2xl px-button-x font-medium outline-none focus:ring-1
-      disabled:cursor-not-allowed`}
+    class={`__clickable z-10 cursor-pointer ${applySize} rounded-2xl px-button-x font-medium
+      outline-none focus:ring-1 disabled:cursor-not-allowed`}
     {disabled}
     on:click={clickHandlerWrapper}
   >
-    {label}
+    <slot />
   </button>
 </ClickableContainer>

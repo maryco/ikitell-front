@@ -21,13 +21,9 @@
   {#if showHeaderNav}
     <nav class={`${styles.navBase} ${isRoot ? '' : styles.navApp}`}>
       {#if isRoot}
-        <AnchorButton
-          to={'/login'}
-          text={'Log in'}
-          theme={'transparent'}
-          modifireClass={'--top'}
-          noShadow={true}
-        />
+        <AnchorButton to={'/login'} theme={'transparent'} modifireClass={'--top'} noShadow={true}
+          >Log in</AnchorButton
+        >
       {/if}
       <ThemeSwitch theme={`dark`} />
     </nav>

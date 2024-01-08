@@ -1,1 +1,1 @@
-export { default as HeroImage } from './ui/hero-Image.svelte'
+export { default as HeroImage } from './ui/hero-image.svelte'

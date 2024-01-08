@@ -1,9 +1,5 @@
 <script>
-  import { page } from '$app/stores'
+  import { ErrorPage } from '$lib/pages/error'
 </script>
 
-<h1>{$page.status}: {$page.error?.message}</h1>
-<ul>
-  <li><a href="/">Top</a></li>
-  <li><a href="/login">Login</a></li>
-</ul>
+<ErrorPage />

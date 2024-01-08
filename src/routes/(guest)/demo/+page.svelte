@@ -2,9 +2,7 @@
   import { validator } from '@felte/validator-zod'
   import { createForm } from 'felte'
   import * as zod from 'zod'
-  import { FieldSetText } from '$lib/shared/ui'
-  import AnchorButton from '$lib/shared/ui/anchor-button.svelte'
-  import FormButton from '$lib/shared/ui/form-button.svelte'
+  import { FieldSetText, AnchorButton, Button } from '$lib/shared/ui'
   import { showSpinner } from '$lib/widgets/modal'
 
   /**
@@ -24,7 +22,8 @@
   }
 
   $: {
-    showSpinner.set($isSubmitting)
+    console.log(`Submitting ${$isSubmitting}`)
+    // showSpinner.set($isSubmitting)
   }
 
   const formSchema = zod.object({
@@ -43,6 +42,7 @@
           return
         }
 
+        showSpinner.set(true)
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         await new Promise((resolve, _) => {
           setTimeout(() => {
@@ -50,7 +50,6 @@
           }, 3000)
         })
         showSpinner.set(false)
-        return
       },
       initialValues: {
         email: 'email@example.com',
@@ -99,17 +98,17 @@
 
 <section class={sectionBase}>
   <ul class="grid grid-cols-3 place-content-center gap-4">
-    <li><AnchorButton to={'#'} text={'Link Primary'} theme={'primary'} /></li>
-    <li><AnchorButton to={'#'} text={'Link Secondary'} theme={'secondary'} /></li>
-    <li><AnchorButton to={'#'} text={'Link Transparent'} theme={'transparent'} /></li>
+    <li><AnchorButton to={'#'} theme={'primary'}>Link Primary</AnchorButton></li>
+    <li><AnchorButton to={'#'} theme={'secondary'}>Link Secondary</AnchorButton></li>
+    <li><AnchorButton to={'#'} theme={'transparent'}>Link Transparent</AnchorButton></li>
 
-    <li><AnchorButton to={'#'} text={'Link Flat'} theme={'primary'} noShadow={true} /></li>
-    <li><AnchorButton to={'#'} text={'Link Flat'} theme={'secondary'} noShadow={true} /></li>
-    <li><AnchorButton to={'#'} text={'Link Flat'} theme={'transparent'} noShadow={true} /></li>
+    <li><AnchorButton to={'#'} theme={'primary'} noShadow={true}>Link Flat</AnchorButton></li>
+    <li><AnchorButton to={'#'} theme={'secondary'} noShadow={true}>Link Flat</AnchorButton></li>
+    <li><AnchorButton to={'#'} theme={'transparent'} noShadow={true}>Link Flat</AnchorButton></li>
 
-    <li><AnchorButton to={'#'} text={'Link Larg'} theme={'primary'} size={'lg'} /></li>
-    <li><AnchorButton to={'#'} text={'Link Medium'} theme={'secondary'} size={'md'} /></li>
-    <li><AnchorButton to={'#'} text={'Link Small'} theme={'transparent'} size={'sm'} /></li>
+    <li><AnchorButton to={'#'} theme={'primary'} size={'lg'}>Link Larg</AnchorButton></li>
+    <li><AnchorButton to={'#'} theme={'secondary'} size={'md'}>Link Medium</AnchorButton></li>
+    <li><AnchorButton to={'#'} theme={'transparent'} size={'sm'}>Link Small</AnchorButton></li>
   </ul>
 </section>
 
@@ -159,15 +158,21 @@
         />
       </div>
       <div class="flex flex-col items-center space-y-4 pt-4 *:w-[280px]">
-        <FormButton type="submit" label="Log in" disabled={!$isValid} size="lg" theme="secondary" />
-        <FormButton
+        <Button
+          type="submit"
+          disabled={!$isValid}
+          size="lg"
+          theme="secondary"
+          clickHandler={() => {}}>Submit</Button
+        >
+        <Button
           type="reset"
-          label="Reset Is Dirty"
           disabled={!isTouched}
           size="lg"
           theme="secondary"
-        />
-        <FormButton type="reset" label="Reset Always" size="lg" theme="primary" />
+          clickHandler={() => {}}>Reset Is Dirty</Button
+        >
+        <Button type="reset" size="lg" theme="primary" clickHandler={() => {}}>Reset Always</Button>
       </div>
     </form>
   </div>

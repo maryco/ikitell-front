@@ -15,7 +15,9 @@
       <HeroImage />
     </div>
     <div
-      class="--theme mt-[15vh] flex min-h-[414px] flex-col rounded-xl border pt-[68px] text-center *:text-3xl *:leading-relaxed *:text-white md:absolute md:right-0 md:mt-0 md:size-[485px] md:*:text-4xl md:*:leading-relaxed"
+      class={`--theme mt-[15vh] flex min-h-[414px] flex-col rounded-xl border pt-[68px] 
+      text-center *:text-3xl *:leading-relaxed *:text-white 
+      md:absolute md:right-0 md:mt-0 md:size-[485px] md:*:text-4xl md:*:leading-relaxed`}
     >
       <p>Notify Someone<br />Of Your Ghosting.</p>
       <p class="mt-8">For All<br /><strong class="text-[3rem]">"ALONELY"</strong></p>

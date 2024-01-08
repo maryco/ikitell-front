@@ -6,6 +6,12 @@ export const UI_SIZES = {
 
 export type UiSizes = keyof typeof UI_SIZES
 
+export const BUTTON_SIZES: Record<UiSizes, string> = {
+  sm: 'min-h-8',
+  md: 'min-h-11',
+  lg: 'min-h-12',
+} as const
+
 export type ButtonTheme = {
   color: { bg: string; focus: string; hover: string; text: string }
   ripple: { bg: string }

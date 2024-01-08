@@ -1,6 +1,6 @@
 <script lang="ts">
   import { listenClickAction } from '../action'
-  import { BUTTON_THEMES, type ButtonTheme, type UiSizes } from './types/theme'
+  import { BUTTON_SIZES, BUTTON_THEMES, type ButtonTheme, type UiSizes } from './types/theme'
 
   /**
    * NOTE: Slots element required apply class '__clickable'
@@ -12,11 +12,7 @@
   export let noShadow = false
   export let disabled = false
 
-  const applySize: Record<UiSizes, string> = {
-    sm: 'min-h-8', // 32px
-    md: 'min-h-11', // 44px
-    lg: 'min-h-12', // 48px
-  }
+  const applySize = BUTTON_SIZES[size]
 
   const applyTheme: ButtonTheme =
     typeof theme === 'object' ? theme : (BUTTON_THEMES[theme] ??= BUTTON_THEMES['primary'])
@@ -38,8 +34,8 @@
 </script>
 
 <div
-  class={`c-clickable-container ${applySize[size]} rounded-xl
-    ${applyTheme.color.bg} text-white shadow-md transition-colors duration-200 *:duration-200 dark:shadow-gray-dark
+  class={`c-clickable-container ${applySize} rounded-xl
+    ${applyTheme.color.bg} text-white shadow-md transition-colors duration-200 ease-out *:duration-200 dark:shadow-gray-dark
     ${applyTheme.color.focus} ${applyTheme.color.hover} ${applyTheme.color.text}
     has-[:disabled,[aria-disabled=true]]:bg-gray-outline has-[:disabled,[aria-disabled=true]]:shadow-none 
     ${modifireClass}`}
@@ -72,8 +68,8 @@
       border-radius: 100%;
       opacity: 0.5;
       transition:
-        transform 300ms ease-in-out,
-        opacity 300ms ease-in-out;
+        transform 200ms ease-in,
+        opacity 200ms ease-in;
       transform-origin: center;
     }
   }

@@ -1,7 +1,7 @@
 export { default as ClickableContainer } from './clickable-container.svelte'
 export { default as SwitchRadio } from './switch-radio.svelte'
 export { default as FieldSetText } from './fieldset-text.svelte'
-export { default as FormButton } from './form-button.svelte'
+export { default as Button } from './button.svelte'
 export { default as AnchorButton } from './anchor-button.svelte'
 export { default as ClearButton } from './clear-button.svelte'
 

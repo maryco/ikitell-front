@@ -1,3 +1,4 @@
-<h1>Dashboard</h1>
-<h2>Device widget</h2>
-<h2>Notification logs</h2>
+<section class="flex-grow grid place-content-center">
+  <h1>TODO: Timer Reset Widget</h1>
+  <h2>TODO: Notification logs</h2>
+</section>

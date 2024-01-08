@@ -13,12 +13,8 @@
   in:fly={{ x: '100vh', duration: 800, easing: quartInOut }}
 >
   <LoginForm>
-    <AnchorButton
-      slot="cancel"
-      to={'/'}
-      text={'Cancel'}
-      replaceState={true}
-      theme={'transparent'}
-    />
+    <AnchorButton slot="cancel" to={'/'} replaceState={true} theme={'transparent'}
+      >Cancel</AnchorButton
+    >
   </LoginForm>
 </section>

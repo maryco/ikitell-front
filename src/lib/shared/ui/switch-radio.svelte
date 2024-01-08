@@ -49,7 +49,7 @@
       class="appearance-none"
       on:change={changeHandler}
     />
-    <label for={onId} class={`--hover-on ${labelClassBase}`}
+    <label for={onId} class={`c-switch-radio--hover-on ${labelClassBase}`}
       ><span class={`${makeIconClass(isOn)}`}><slot name="iconOn" /></span></label
     >
   </div>
@@ -65,20 +65,22 @@
       class="appearance-none"
       on:change={changeHandler}
     />
-    <label for={offId} class={`--hover-off ${labelClassBase}`}
+    <label for={offId} class={`c-switch-radio--hover-off ${labelClassBase}`}
       ><span class={`${makeIconClass(!isOn)}`}><slot name="iconOff" /></span></label
     >
   </div>
 </fieldset>
 
 <style class="postcss">
-  .--hover-on:hover > span {
-    background: rgb(var(--color-primary) / 0.7);
-    box-shadow: 0 0 8px rgb(var(--color-primary) / 0.7);
-  }
+  .c-switch-radio {
+    &--hover-on:hover > span {
+      background: rgb(var(--color-primary) / 0.7);
+      box-shadow: 0 0 8px rgb(var(--color-primary) / 0.7);
+    }
 
-  .--hover-off:hover > span {
-    background: rgb(var(--color-secondary) / 0.7);
-    box-shadow: 0 0 8px rgb(var(--color-secondary) / 0.7);
+    &--hover-off:hover > span {
+      background: rgb(var(--color-secondary) / 0.7);
+      box-shadow: 0 0 8px rgb(var(--color-secondary) / 0.7);
+    }
   }
 </style>
