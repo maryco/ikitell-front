@@ -15,6 +15,7 @@
   name="darkMode"
   changeHandler={changeToDarkMode}
   onValue={COLOR_SCHEMES.dark}
+  offValue={COLOR_SCHEMES.light}
   isOn={$isDarkMode}
   theme={theme ?? ($isDarkMode ? 'dark' : 'light')}
   {size}
