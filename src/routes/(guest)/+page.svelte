@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-  <title>Top | ikitell</title>
+  <title>Ikitell? - Are you still alive?</title>
 </svelte:head>
 
 <WelcomePage />

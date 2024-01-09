@@ -66,7 +66,7 @@
 </script>
 
 <svelte:head>
-  <title>UI Demo | ikitell</title>
+  <title>UI Demo - Ikitell Me</title>
 </svelte:head>
 
 <!-- Colors -->

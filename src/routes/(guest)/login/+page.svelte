@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-  <title>Login | ikitell</title>
+  <title>Login - Ikitel Me</title>
 </svelte:head>
 
 <LoginPage />

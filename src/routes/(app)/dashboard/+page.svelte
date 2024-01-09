@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-  <title>Dashboard | ikitell</title>
+  <title>Dashboard - Ikitell Me</title>
 </svelte:head>
 
 <DashboardPage />
