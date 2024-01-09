@@ -1,8 +1,17 @@
 <script>
+  import { onMount } from 'svelte'
   import { page } from '$app/stores'
   import { LogoutButton } from '$lib/features/authenticate'
   import { SpinnerDialog } from '$lib/widgets/modal'
   import { ThemeSwitch } from '$lib/widgets/theme-switch'
+
+  onMount(() => {
+    // @see app.html
+    setTimeout(() => {
+      const splash = document.querySelector('#splash-content')
+      if (splash) splash.remove()
+    }, 1000)
+  })
 </script>
 
 <main class="flex min-h-screen w-screen flex-col">

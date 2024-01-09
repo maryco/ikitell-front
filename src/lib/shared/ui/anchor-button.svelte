@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { ClickableContainer } from '.'
   import { BUTTON_SIZES } from './types/theme'
+  import { ClickableContainer } from '.'
   import type { ButtonTheme, UiSizes } from '.'
 
   export let to: string

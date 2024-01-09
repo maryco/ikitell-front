@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte'
   import { page } from '$app/stores'
   import { isDarkMode } from '$lib/entities/app-state'
   import { AnchorButton } from '$lib/shared/ui'
@@ -15,6 +16,18 @@
     navBase: 'flex h-20 w-full items-center justify-end gap-x-3 p-5',
     navApp: 'bg-gray-light border border-b-[gray-outline]',
   }
+
+  onMount(() => {
+    // @see app.html
+    if (isRoot) {
+      // NOTE: Remove "splash-content" by script within app.html
+      return
+    }
+    setTimeout(() => {
+      const splash = document.querySelector('#splash-content')
+      if (splash) splash.remove()
+    }, 1000)
+  })
 </script>
 
 <main class={styles.bgBase} class:--root={isRoot} class:--dark={isRoot && $isDarkMode}>

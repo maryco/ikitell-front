@@ -1,12 +1,82 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="%sveltekit.assets%/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    %sveltekit.head%
-  </head>
-  <body data-sveltekit-preload-data="hover">
-    <div style="display: contents">%sveltekit.body%</div>
-  </body>
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="%sveltekit.assets%/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  %sveltekit.head%
+  <script>
+    // Optimize rendering background image on the top page by preloading
+    async function preloadTopBgImage() {
+      // NOTE: Required the same as tailwind 'md'.
+      const isMdScreen = window.matchMedia('(min-width: 768px)').matches
+      const img = new Image()
+      await new Promise((resolve) => {
+        img.src = `%sveltekit.assets%/images/bg_top${isMdScreen ? 'Large' : 'Small'}.png`
+        img.onload = () => {
+          window.dispatchEvent(new CustomEvent('preloaded'))
+          resolve
+        }
+      })
+    }
+
+    function removeSplash() {
+      const splash = document.querySelector('#splash-content')
+      if (splash) {
+        splash.remove()
+      } else {
+      }
+    }
+
+    if (window.location.pathname === '/') {
+      window.addEventListener('DOMContentLoaded', preloadTopBgImage)
+      window.addEventListener('preloaded', removeSplash)
+    } else {
+      window.removeEventListener('DOMContentLoaded', preloadTopBgImage)
+      window.removeEventListener('preloaded', removeSplash)
+    }
+  </script>
+</head>
+
+<body data-sveltekit-preload-data="hover">
+  <div id="splash-content">
+    <img src="%sveltekit.assets%/images/logo.png" alt="logo" loading="lazy" style="width: 100px; height: auto" />
+  </div>
+  <div style="display: contents">%sveltekit.body%</div>
+</body>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  #splash-content {
+    display: grid;
+    background-color: #d0d7de;
+    place-content: center;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  #splash-content>img {
+    animation: bounce 1s infinite;
+  }
+
+  @keyframes bounce {
+
+    0%,
+    100% {
+      transform: translateY(-25%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+
+    50% {
+      transform: translateY(0);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+</style>
+
 </html>

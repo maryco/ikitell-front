@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { ClickableContainer } from '.'
   import { BUTTON_SIZES, type ButtonTheme, type UiSizes } from './types/theme'
+  import { ClickableContainer } from '.'
 
   export let disabled = false
   export let type: 'submit' | 'button' | 'reset' | null | undefined = 'button'

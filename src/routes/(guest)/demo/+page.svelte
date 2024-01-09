@@ -43,8 +43,7 @@
         }
 
         showSpinner.set(true)
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        await new Promise((resolve, _) => {
+        await new Promise((resolve) => {
           setTimeout(() => {
             resolve(true)
           }, 3000)
@@ -62,7 +61,8 @@
   let isTouched: boolean
   $: isTouched = $isDirty || $touched.email || $touched.password
 
-  const sectionBase = 'grid flex-grow place-items-center bg-gray-surface dark:bg-gray-surface-dark'
+  const sectionBase =
+    'grid flex-grow place-items-center mt-4 bg-gray-surface dark:bg-gray-surface-dark'
 </script>
 
 <svelte:head>

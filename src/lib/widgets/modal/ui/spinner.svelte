@@ -28,10 +28,10 @@
 
 <dialog
   bind:this={dialog}
-  class="place-content-center bg-transparent *:transition-transform *:duration-500 open:grid"
+  class="place-content-center overflow-hidden bg-transparent *:transition-transform *:duration-500 open:grid"
 >
-  <div class={isOpen ? 'scale-1' : 'scale-0'}>
-    <div class="c-spinner size-[200px]" aria-label={label} aria-busy="true">
+  <div class={isOpen ? 'c-spinner scale-1 size-max-content' : 'scale-0'}>
+    <div class="size-[200px]" aria-label={label} aria-busy="true">
       <IkitellFace {color} dotColor={color} ariaHidden={true} />
     </div>
   </div>
@@ -47,7 +47,6 @@
    * + at-rule-no-vendor-prefix
    */
   .c-spinner {
-    overflow: hidden;
     animation: anm-rolling;
     -webkit-animation: anm-rolling infinite 1.2s ease-in-out;
 
