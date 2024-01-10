@@ -49,7 +49,7 @@
 <style lang="postcss">
   .c-clickable-container {
     display: grid;
-    grid-template: 'container';
+    grid-template: 'container' 1fr;
     place-content: center;
     place-items: center;
     overflow: hidden;

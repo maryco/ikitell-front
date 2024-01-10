@@ -22,7 +22,7 @@
   let onId = `${name}-on`
   let offId = `${name}-off`
 
-  const labelClassBase = 'grid h-full w-full cursor-pointer place-content-center'
+  const labelClassBase = 'grid grid-rows-1 h-full w-full cursor-pointer place-content-center'
   const iconClassBase =
     'grid size-[28px] place-content-center rounded-full transition-shadow *:size-[24px]'
   const makeIconClass = (isActive: boolean) => {

@@ -71,7 +71,7 @@
 
 <!-- Colors -->
 <section class={sectionBase}>
-  <div class="flex gap-4">
+  <div class="flex flex-wrap flex-column md:flex-row justify-center gap-4 overflow-auto">
     <ul class="grid grid-cols-3 place-content-start *:size-11">
       <li class="bg-primary-0" title="primary-0"></li>
       <li class="bg-primary-600" title="primary-600"></li>
@@ -85,7 +85,7 @@
       <li class="bg-black" title="black"></li>
       <li class="bg-error" title="error"></li>
     </ul>
-    <ul class="grid grid-cols-6 place-content-start *:size-11">
+    <ul class="grid grid-cols-3 md:grid-cols-6 place-content-start *:size-11">
       <li class="bg-gray-surface" title="gray-surface"></li>
       <li class="bg-gray-light" title="gray-light"></li>
       <li class="bg-gray-base" title="gray-base"></li>

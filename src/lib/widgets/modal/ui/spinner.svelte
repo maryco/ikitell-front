@@ -38,17 +38,8 @@
 </dialog>
 
 <style lang="postcss">
-  /* stylelint-disable */
-  /*
-   * FIXME: Chrome won't animate if remove "-webkit-animation" with stylelint?
-   * + comment-empty-line-before
-   * + order/properties-order
-   * + property-no-vendor-prefix
-   * + at-rule-no-vendor-prefix
-   */
   .c-spinner {
-    animation: anm-rolling;
-    -webkit-animation: anm-rolling infinite 1.2s ease-in-out;
+    animation: anm-rolling infinite 1.2s ease-in-out;
 
     :global(svg) {
       width: 100%;
@@ -63,14 +54,4 @@
       transform: rotateZ(360deg);
     }
   }
-
-  @-webkit-keyframes anm-rolling {
-    from {
-      transform: rotateZ(0deg);
-    }
-    to {
-      transform: rotateZ(360deg);
-    }
-  }
-  /* stylelint-enable */
 </style>
