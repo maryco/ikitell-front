@@ -4,6 +4,7 @@
   import * as zod from 'zod'
   import { FieldSetText, AnchorButton, Button } from '$lib/shared/ui'
   import { showSpinner } from '$lib/widgets/modal'
+  import { afterUpdate, tick } from 'svelte'
 
   /**
    * Form: https://felte.dev/docs/svelte/getting-started
@@ -33,7 +34,7 @@
     disabledText: zod.string().nullish(),
   })
 
-  const { form, touched, isDirty, isValid, isValidating, isSubmitting, errors, setFields } =
+  const { form, validate, touched, isDirty, isValid, isValidating, isSubmitting, errors, setFields } =
     createForm<zod.infer<typeof formSchema>>({
       extend: validator({ schema: formSchema, level: 'error' }),
       onSubmit: async (values) => {
@@ -123,14 +124,17 @@
           label="e-mail"
           errors={$errors.email ?? []}
           showError={true}
-          on:clear={() => setFields('email', '', true)}
+          on:clear={() => {
+            setFields('email', '', true)
+            validate()
+          }}
         />
         <!-- Without error state -->
         <FieldSetText
           type="password"
           name="password"
           label="password"
-          errors={[]}
+          errors={$errors.password ?? []}
           showError={false}
           on:clear={() => setFields('password', '', true)}
         />

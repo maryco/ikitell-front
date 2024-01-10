@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { listenClickAction } from '../action'
+  import { clickEffect } from '../action'
   import { BUTTON_SIZES, BUTTON_THEMES, type ButtonTheme, type UiSizes } from './types/theme'
 
   /**
@@ -33,17 +33,18 @@
   }
 </script>
 
-<div
-  class={`c-clickable-container ${applySize} rounded-xl
-    ${applyTheme.color.bg} text-white shadow-md transition-colors duration-200 ease-out *:duration-200 dark:shadow-gray-dark
-    ${applyTheme.color.focus} ${applyTheme.color.hover} ${applyTheme.color.text}
-    has-[:disabled,[aria-disabled=true]]:bg-gray-outline has-[:disabled,[aria-disabled=true]]:shadow-none 
-    ${modifireClass}`}
-  class:--flat={noShadow}
-  use:listenClickAction={genelateRipple}
->
-  <span bind:this={ripple} class="__ripple" aria-hidden="true" />
-  <slot />
+<div use:clickEffect={{ handler: genelateRipple, hoverStyle: applyTheme.color.hover }}>
+  <div
+    class={`c-clickable-container ${applySize} rounded-xl z-10
+      ${applyTheme.color.bg} text-white shadow-md transition-colors duration-200 ease-out *:duration-200 dark:shadow-gray-dark
+      ${applyTheme.color.focus} ${applyTheme.color.hover} ${applyTheme.color.text}
+      has-[:disabled,[aria-disabled=true]]:bg-gray-outline has-[:disabled,[aria-disabled=true]]:shadow-none 
+      ${modifireClass}`}
+    class:--flat={noShadow}
+  >
+    <span bind:this={ripple} class="__ripple" aria-hidden="true" />
+    <slot />
+  </div>
 </div>
 
 <style lang="postcss">
@@ -65,7 +66,7 @@
       height: 100%;
       aspect-ratio: 1 / 1;
       background-color: transparent;
-      border-radius: 100%;
+      border-radius: 50%;
       opacity: 0.5;
       transition:
         transform 200ms ease-in,

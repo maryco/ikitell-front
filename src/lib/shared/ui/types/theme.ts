@@ -22,8 +22,8 @@ export const BUTTON_THEMES: Record<string, ButtonTheme> = {
     color: {
       bg: 'bg-primary-0',
       focus: 'focus-within:bg-primary-600/80',
-      hover: 'hover:bg-primary-600/80',
-      text: '*:text-black *:hover:text-white *:has-[:disabled,[aria-disabled=true]]:text-gray-base',
+      hover: 'hover:bg-primary-600/80 *:hover:text-white',
+      text: '*:text-black *:has-[:disabled,[aria-disabled=true]]:text-gray-base',
     },
     ripple: { bg: '!bg-primary-900' },
   },
@@ -31,8 +31,8 @@ export const BUTTON_THEMES: Record<string, ButtonTheme> = {
     color: {
       bg: 'bg-secondary-0',
       focus: 'focus-within:bg-secondary-300',
-      hover: 'hover:bg-secondary-300',
-      text: '*:text-black *:hover:text-white *:has-[:disabled,[aria-disabled=true]]:text-gray-base',
+      hover: 'hover:bg-secondary-300 *:hover:text-white',
+      text: '*:text-black *:has-[:disabled,[aria-disabled=true]]:text-gray-base',
     },
     ripple: { bg: '!bg-secondary-700' },
   },
@@ -40,8 +40,8 @@ export const BUTTON_THEMES: Record<string, ButtonTheme> = {
     color: {
       bg: 'bg-white/10 border border-gray-outline',
       focus: 'focus-within:bg-gray-base/40',
-      hover: 'hover:bg-white dark:hover:bg-white',
-      text: '*:text-black *:has-[:disabled,[aria-disabled=true]]:text-gray-base *:dark:text-white *:dark:hover:text-black',
+      hover: 'hover:bg-white dark:hover:bg-white *:dark:hover:text-black',
+      text: '*:text-black *:has-[:disabled,[aria-disabled=true]]:text-gray-base *:dark:text-white',
     },
     ripple: { bg: '!bg-gray-outline' },
   },

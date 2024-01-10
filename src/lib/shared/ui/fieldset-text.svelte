@@ -13,6 +13,9 @@
   export let readonly = false
   export let disabled = false
 
+  let hasError: boolean
+  $: hasError = errors !== undefined && errors.length !== 0
+
   const dispatch = createEventDispatcher()
 
   let inputElement: HTMLInputElement
@@ -20,6 +23,7 @@
     if (!inputElement) {
       return
     }
+    inputElement.focus() // NOTE: It seems that need focus manually to validate on touch devices
     inputElement.classList.add('is-empty')
     dispatch('clear')
   }
@@ -29,7 +33,8 @@
   {#if label}
     <label for={id} class="dark:text-gray-light">{label}</label>
   {/if}
-  <div class="c-fieldset__input-weapper *:h-full">
+  <div class="c-fieldset__input-weapper *:h-full" class:has-error={hasError}>
+    <!-- NOTE: Need opacity-100 for disabled background-color in iOS -->
     <input
       bind:this={inputElement}
       use:watchEmptyAction
@@ -37,8 +42,8 @@
       {type}
       {name}
       class={`peer w-full rounded-lg border border-gray-outline pl-4 pr-10 outline-none transition-shadow 
-        read-only:border-transparent disabled:bg-gray-outline dark:bg-gray-dark 
-        dark:text-gray-light dark:disabled:text-gray-dark`}
+        read-only:border-transparent disabled:bg-gray-outline dark:bg-gray-dark dark:disabled:bg-gray-outline
+        dark:text-gray-light dark:disabled:text-gray-dark opacity-100`}
       {placeholder}
       {readonly}
       {disabled}
@@ -54,7 +59,9 @@
     {/if}
   </div>
   {#if errors && showError}
-    <p class="message overflow-hidden text-ellipsis whitespace-nowrap">{errors}</p>
+    <span class="c-fieldset__error-message overflow-hidden text-ellipsis whitespace-nowrap"
+      >{errors}</span
+    >
   {/if}
 </fieldset>
 
@@ -105,16 +112,18 @@
       }
     }
 
-    & .message {
+    &__error-message {
       grid-area: message;
       place-self: center start;
       max-width: 100%;
+      color: rgb(var(--color-error) / 1);
     }
 
-    &:has(input[aria-invalid='true']) {
-      & .message,
+    /* NOTE: Is 'aria-invalid' not working in iOS? */
+    /* &:has(input[aria-invalid='true']) { */
+    &:has(.has-error) {
       label,
-      & ::placeholder {
+      &::placeholder {
         color: rgb(var(--color-error) / 1);
       }
 
@@ -123,6 +132,7 @@
       }
 
       & input {
+        border: solid 1px rgb(var(--color-error) / 1);
         box-shadow:
           inset 0 0 6px rgb(var(--color-error) / 0.15),
           0 0 6px 2px rgb(var(--color-error) / 0.6);

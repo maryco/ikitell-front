@@ -22,7 +22,7 @@
   let onId = `${name}-on`
   let offId = `${name}-off`
 
-  const labelClassBase = 'grid grid-rows-1 h-full w-full cursor-pointer place-content-center'
+  const labelClassBase = `flex justify-center w-full cursor-pointer`
   const iconClassBase =
     'grid size-[28px] place-content-center rounded-full transition-shadow *:size-[24px]'
   const makeIconClass = (isActive: boolean) => {
@@ -35,10 +35,10 @@
 </script>
 
 <fieldset
-  class={`flex ${applySize[size]} min-w-[128px] items-center rounded-xl border ${applyTheme.border} ${applyTheme.bg}`}
+  class={`flex flex-nowrap ${applySize[size]} min-w-[128px] items-center rounded-xl border ${applyTheme.border} ${applyTheme.bg}`}
 >
   <!-- On -->
-  <div class="grid grow place-items-center border-r-2">
+  <div class="flex grow border-r-2">
     <input
       {name}
       id={onId}
@@ -54,7 +54,7 @@
     >
   </div>
   <!-- Off -->
-  <div class="grid grow place-items-center">
+  <div class="flex grow">
     <input
       {name}
       id={offId}
