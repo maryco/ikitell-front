@@ -32,7 +32,7 @@ export default {
         'sky-lg': "url('/images/bg_topLarge.png')",
       },
       padding: {
-        'button-x': '42px',
+        'button-x': '8px',
       },
     },
   },

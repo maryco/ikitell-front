@@ -7,9 +7,9 @@ export const UI_SIZES = {
 export type UiSizes = keyof typeof UI_SIZES
 
 export const BUTTON_SIZES: Record<UiSizes, string> = {
-  sm: 'min-h-8',
-  md: 'min-h-11',
-  lg: 'min-h-12',
+  sm: 'min-h-8 min-w-10',
+  md: 'min-h-11 min-w-10 md:min-w-20',
+  lg: 'min-h-12 min-w-10 md:min-w-32',
 } as const
 
 export type ButtonTheme = {
@@ -68,7 +68,7 @@ export const SWITCH_THEMES: Record<string, SwitchTheme> = {
     },
   },
   dark: {
-    border: 'border-outline',
+    border: 'border-gray-outline',
     bg: 'bg-white/[0.15]',
     icon: {
       borderOn: 'border border-white',

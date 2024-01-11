@@ -18,7 +18,7 @@
   {#if !$page.error}
     <nav
       class="flex h-[52px] w-full items-center justify-end gap-x-3
-      border-b border-[gray-outline] bg-gray-light px-[10px] dark:border-none dark:bg-gray-base"
+      border-b border-gray-outline bg-gray-light px-[10px] dark:border-none dark:bg-gray-base"
     >
       <LogoutButton />
       <ThemeSwitch size={`sm`} iconSize={20} />

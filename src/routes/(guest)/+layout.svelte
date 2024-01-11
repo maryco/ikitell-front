@@ -14,7 +14,7 @@
   const styles = {
     bgBase: 'flex min-h-screen w-screen flex-col',
     navBase: 'flex h-20 w-full items-center justify-end gap-x-3 p-5',
-    navApp: 'bg-gray-light border border-b-[gray-outline]',
+    navApp: 'bg-gray-light border-b border-b-gray-outline dark:bg-gray-base',
   }
 
   onMount(() => {

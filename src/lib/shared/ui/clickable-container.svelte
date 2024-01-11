@@ -50,14 +50,14 @@
 <style lang="postcss">
   .c-clickable-container {
     display: grid;
-    grid-template: 'container' 1fr;
+    grid-template: 'container' minmax(0, 1fr) / minmax(0, 1fr);
     place-content: center;
     place-items: center;
     overflow: hidden;
 
     :global(.__clickable) {
       grid-area: container;
-      width: inherit;
+      width: 100%;
       height: inherit;
     }
 
@@ -86,5 +86,7 @@
       background: var(--grad-sky-light) !important;
       box-shadow: 0 0 12px rgb(255 255 255 / 0.8) !important;
     }
+
+    width: 128px;
   }
 </style>
