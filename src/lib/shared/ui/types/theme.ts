@@ -12,6 +12,12 @@ export const BUTTON_SIZES: Record<UiSizes, string> = {
   lg: 'min-h-12 min-w-10 md:min-w-32',
 } as const
 
+export const BUTTON_SIZES_INNER: Record<UiSizes, string> = {
+  sm: 'min-h-[calc(2rem-2px)]', // min-h-8 -2px
+  md: 'min-h-[calc(2.75rem-2px)]', // min-h-11 -2px
+  lg: 'min-h-[calc(3rem-2px)]', // min-h-12 -2px
+} as const
+
 export type ButtonTheme = {
   color: { bg: string; focus: string; hover: string; text: string }
   ripple: { bg: string }

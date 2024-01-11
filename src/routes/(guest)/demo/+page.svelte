@@ -122,7 +122,7 @@
 </section>
 
 <!-- Form Controls -->
-<section class={sectionBase}>
+<section class={`${sectionBase} mb-10`}>
   <form use:form class="flex w-[90vw] flex-col space-y-6 md:w-[520px]">
     <div class="grid grid-cols-2 gap-4">
       <FieldSetText
@@ -176,6 +176,9 @@
         >Reset Is Dirty</Button
       >
       <Button type="reset" size="lg" theme="primary" clickHandler={() => {}}>Reset Always</Button>
+      <Button type="button" size="lg" theme="transparent" clickHandler={() => {}}
+        >Just A Button</Button
+      >
     </div>
   </form>
 </section>

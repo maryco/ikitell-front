@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { BUTTON_SIZES, type ButtonTheme, type UiSizes } from './types/theme'
+  import { BUTTON_SIZES_INNER, type ButtonTheme, type UiSizes } from './types/theme'
   import { ClickableContainer } from '.'
 
   export let disabled = false
@@ -8,7 +8,7 @@
   export let theme: 'primary' | 'secondary' | 'transparent' | ButtonTheme = 'primary'
   export let clickHandler: () => void
 
-  const applySize = BUTTON_SIZES[size]
+  const applySizeInner = BUTTON_SIZES_INNER[size]
 
   let buttonElement: HTMLButtonElement
 
@@ -22,7 +22,7 @@
   <button
     bind:this={buttonElement}
     {type}
-    class={`__clickable z-10 cursor-pointer ${applySize} rounded-2xl px-button-x font-medium
+    class={`__clickable z-10 cursor-pointer ${applySizeInner} rounded-2xl px-button-x font-medium
       outline-none focus:ring-1 disabled:cursor-not-allowed`}
     {disabled}
     on:click={clickHandlerWrapper}

@@ -25,21 +25,23 @@ export const clickEffect: Action<HTMLDivElement, { handler: () => void; hoverSty
     })
   }
 
-  node.addEventListener('click', handleClick)
-
   const container = node.querySelector('.c-clickable-container')
   if ('ontouchstart' in globalThis) {
     // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/globalThis
     container?.addEventListener('touchstart', addHover)
     container?.addEventListener('touchend', removeHover)
+  } else {
+    // I don't apply effect because of ripple is overflows on iOS.
+    node.addEventListener('click', handleClick)
   }
 
   return {
     destroy: () => {
-      node.removeEventListener('click', handleClick)
       if ('ontouchstart' in globalThis) {
         container?.addEventListener('touchstart', addHover)
         container?.removeEventListener('touchend', removeHover)
+      } else {
+        node.removeEventListener('click', handleClick)
       }
     },
   }
