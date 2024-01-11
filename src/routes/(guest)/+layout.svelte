@@ -3,7 +3,7 @@
   import { page } from '$app/stores'
   import { isDarkMode } from '$lib/entities/app-state'
   import { AnchorButton } from '$lib/shared/ui'
-  import { SpinnerDialog } from '$lib/widgets/modal'
+  import { SpinnerDialog } from '$lib/widgets/spinner-dialog'
   import { ThemeSwitch } from '$lib/widgets/theme-switch'
 
   let isRoot = false

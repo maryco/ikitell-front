@@ -1,14 +1,14 @@
 import type { Action } from 'svelte/action'
 
-export const clickEffect: Action<HTMLDivElement, { handler: () => void, hoverStyle: string }> = (
+export const clickEffect: Action<HTMLDivElement, { handler: () => void; hoverStyle: string }> = (
   node,
-  props = { handler: () => {}, hoverStyle: '' }
+  props = { handler: () => {}, hoverStyle: '' },
 ) => {
   if (!(node instanceof HTMLDivElement)) {
     return
   }
 
-  function handleClick () {
+  function handleClick() {
     props.handler()
   }
 

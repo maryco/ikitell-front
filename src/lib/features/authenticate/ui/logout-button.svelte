@@ -2,7 +2,7 @@
   import { goto } from '$app/navigation'
   import { authApi } from '$lib/shared/api'
   import { Button } from '$lib/shared/ui'
-  import { showSpinner } from '$lib/widgets/modal'
+  import { showSpinner } from '$lib/widgets/spinner-dialog'
 
   export let to = '/'
 

@@ -50,6 +50,7 @@
     from {
       transform: rotateZ(0deg);
     }
+
     to {
       transform: rotateZ(360deg);
     }

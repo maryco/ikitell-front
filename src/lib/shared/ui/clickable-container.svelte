@@ -35,7 +35,7 @@
 
 <div use:clickEffect={{ handler: genelateRipple, hoverStyle: applyTheme.color.hover }}>
   <div
-    class={`c-clickable-container ${applySize} rounded-xl z-10
+    class={`c-clickable-container ${applySize} z-10 rounded-xl
       ${applyTheme.color.bg} text-white shadow-md transition-colors duration-200 ease-out *:duration-200 dark:shadow-gray-dark
       ${applyTheme.color.focus} ${applyTheme.color.hover} ${applyTheme.color.text}
       has-[:disabled,[aria-disabled=true]]:bg-gray-outline has-[:disabled,[aria-disabled=true]]:shadow-none 

@@ -3,8 +3,7 @@
   import { createForm } from 'felte'
   import * as zod from 'zod'
   import { FieldSetText, AnchorButton, Button } from '$lib/shared/ui'
-  import { showSpinner } from '$lib/widgets/modal'
-  import { afterUpdate, tick } from 'svelte'
+  import { showSpinner } from '$lib/widgets/spinner-dialog'
 
   /**
    * Form: https://felte.dev/docs/svelte/getting-started
@@ -34,30 +33,39 @@
     disabledText: zod.string().nullish(),
   })
 
-  const { form, validate, touched, isDirty, isValid, isValidating, isSubmitting, errors, setFields } =
-    createForm<zod.infer<typeof formSchema>>({
-      extend: validator({ schema: formSchema, level: 'error' }),
-      onSubmit: async (values) => {
-        console.log(values)
-        if (!$isValid) {
-          return
-        }
+  const {
+    form,
+    validate,
+    touched,
+    isDirty,
+    isValid,
+    isValidating,
+    isSubmitting,
+    errors,
+    setFields,
+  } = createForm<zod.infer<typeof formSchema>>({
+    extend: validator({ schema: formSchema, level: 'error' }),
+    onSubmit: async (values) => {
+      console.log(values)
+      if (!$isValid) {
+        return
+      }
 
-        showSpinner.set(true)
-        await new Promise((resolve) => {
-          setTimeout(() => {
-            resolve(true)
-          }, 3000)
-        })
-        showSpinner.set(false)
-      },
-      initialValues: {
-        email: 'email@example.com',
-        password: 'secret',
-        readonlyText: 'This is read only',
-        disabledText: 'THIS FIELD IS DISABLED!',
-      },
-    })
+      showSpinner.set(true)
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(true)
+        }, 3000)
+      })
+      showSpinner.set(false)
+    },
+    initialValues: {
+      email: 'email@example.com',
+      password: 'secret',
+      readonlyText: 'This is read only',
+      disabledText: 'THIS FIELD IS DISABLED!',
+    },
+  })
 
   let isTouched: boolean
   $: isTouched = $isDirty || $touched.email || $touched.password
@@ -72,7 +80,7 @@
 
 <!-- Colors -->
 <section class={sectionBase}>
-  <div class="flex flex-wrap flex-column md:flex-row justify-center gap-4 overflow-auto">
+  <div class="flex-column flex flex-wrap justify-center gap-4 overflow-auto md:flex-row">
     <ul class="grid grid-cols-3 place-content-start *:size-11">
       <li class="bg-primary-0" title="primary-0"></li>
       <li class="bg-primary-600" title="primary-600"></li>
@@ -86,7 +94,7 @@
       <li class="bg-black" title="black"></li>
       <li class="bg-error" title="error"></li>
     </ul>
-    <ul class="grid grid-cols-3 md:grid-cols-6 place-content-start *:size-11">
+    <ul class="grid grid-cols-3 place-content-start *:size-11 md:grid-cols-6">
       <li class="bg-gray-surface" title="gray-surface"></li>
       <li class="bg-gray-light" title="gray-light"></li>
       <li class="bg-gray-base" title="gray-base"></li>
@@ -115,69 +123,59 @@
 
 <!-- Form Controls -->
 <section class={sectionBase}>
-  <div class="flex w-[90%] flex-col items-stretch space-y-6 md:w-[520px]">
-    <form use:form class="flex w-full flex-col items-stretch gap-6">
-      <div class="grid grid-cols-2 gap-4">
-        <FieldSetText
-          type="text"
-          name="email"
-          label="e-mail"
-          errors={$errors.email ?? []}
-          showError={true}
-          on:clear={() => {
-            setFields('email', '', true)
-            validate()
-          }}
-        />
-        <!-- Without error state -->
-        <FieldSetText
-          type="password"
-          name="password"
-          label="password"
-          errors={$errors.password ?? []}
-          showError={false}
-          on:clear={() => setFields('password', '', true)}
-        />
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <FieldSetText
-          type="text"
-          name="readonlyText"
-          label="readonly text"
-          placeholder=""
-          errors={[]}
-          showError={true}
-          readonly={true}
-          on:clear={() => {}}
-        />
-        <FieldSetText
-          type="text"
-          name="disabledText"
-          label="disabled text"
-          placeholder=""
-          errors={[]}
-          showError={true}
-          disabled={true}
-          on:clear={() => {}}
-        />
-      </div>
-      <div class="flex flex-col items-center space-y-4 pt-4 *:w-[280px]">
-        <Button
-          type="submit"
-          disabled={!$isValid}
-          size="lg"
-          theme="secondary"
-          clickHandler={() => {}}>Submit</Button
-        >
-        <Button
-          type="reset"
-          disabled={!isTouched}
-          size="lg"
-          theme="secondary"
-          clickHandler={() => {}}>Reset Is Dirty</Button
-        >
-        <Button type="reset" size="lg" theme="primary" clickHandler={() => {}}>Reset Always</Button>
-      </div>
-    </form>
-  </div>
+  <form use:form class="flex w-[90vw] flex-col space-y-6 md:w-[520px]">
+    <div class="grid grid-cols-2 gap-4">
+      <FieldSetText
+        type="text"
+        name="email"
+        label="e-mail"
+        errors={$errors.email ?? []}
+        showError={true}
+        on:clear={() => {
+          setFields('email', '', true)
+          validate()
+        }}
+      />
+      <!-- Without error state -->
+      <FieldSetText
+        type="password"
+        name="password"
+        label="password"
+        errors={$errors.password ?? []}
+        showError={false}
+        on:clear={() => setFields('password', '', true)}
+      />
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <FieldSetText
+        type="text"
+        name="readonlyText"
+        label="readonly text"
+        placeholder=""
+        errors={[]}
+        showError={true}
+        readonly={true}
+        on:clear={() => {}}
+      />
+      <FieldSetText
+        type="text"
+        name="disabledText"
+        label="disabled text"
+        placeholder=""
+        errors={[]}
+        showError={true}
+        disabled={true}
+        on:clear={() => {}}
+      />
+    </div>
+    <div class="flex flex-col items-center space-y-4 *:w-[280px]">
+      <Button type="submit" disabled={!$isValid} size="lg" theme="secondary" clickHandler={() => {}}
+        >Submit</Button
+      >
+      <Button type="reset" disabled={!isTouched} size="lg" theme="secondary" clickHandler={() => {}}
+        >Reset Is Dirty</Button
+      >
+      <Button type="reset" size="lg" theme="primary" clickHandler={() => {}}>Reset Always</Button>
+    </div>
+  </form>
 </section>

@@ -70,4 +70,95 @@
       rgb(246 131 116 / 0.18) 84%
     );
   }
+
+  .c-fieldset {
+    display: grid;
+    grid-template:
+      'label message' 36px
+      'input-container input-container' /
+      fit-content(100%) minmax(0, 1fr);
+    grid-auto-rows: 48px;
+    gap: 8px 16px;
+    width: 100%;
+
+    &__input-weapper {
+      display: grid;
+      grid-area: input-container;
+      grid-template: 'input-element icon' / minmax(0, 1fr) 28px;
+      min-height: 48px;
+
+      & input {
+        display: grid;
+        grid-area: input-element;
+        padding-bottom: 2px;
+        background-color: transparent;
+        opacity: 1; /* NOTE: Need opacity for disabled background-color in iOS */
+      }
+
+      .c-fieldset__input-icon {
+        display: grid;
+        grid-area: icon;
+        place-items: center;
+      }
+    }
+
+    & label {
+      display: grid;
+      grid-area: label;
+      grid-template-columns: 24px auto;
+      place-self: center start;
+
+      &::before {
+        justify-self: start;
+        width: 24px;
+        height: 24px;
+        content: '';
+        background-color: rgb(var(--color-gray-outline) / 1);
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16 12L10 18V6L16 12Z' fill='currentColor'%3E%3C/path%3E%3C/svg%3E")
+          no-repeat center;
+      }
+    }
+
+    &:focus-within {
+      & label::before {
+        background-color: rgb(var(--color-primary) / 1);
+      }
+
+      .c-fieldset__input-weapper {
+        border: solid 1px rgb(var(--color-gray-outline) / 0.45);
+        box-shadow:
+          inset 0 0 6px rgb(var(--color-primary-900) / 0.15),
+          0 0 6px 2px rgb(var(--color-primary-600) / 0.15);
+      }
+    }
+
+    &__error-message {
+      grid-area: message;
+      place-self: center start;
+      max-width: 100%;
+      color: rgb(var(--color-error) / 1);
+    }
+
+    /* 
+     * NOTE: Is 'aria-invalid' not working in iOS? 
+     * &:has(input[aria-invalid='true']) {
+    */
+    &:has(.has-error) {
+      label,
+      &::placeholder {
+        color: rgb(var(--color-error) / 1);
+      }
+
+      & label::before {
+        background-color: rgb(var(--color-error) / 1);
+      }
+
+      .c-fieldset__input-weapper {
+        border: solid 1px rgb(var(--color-error) / 1) !important;
+        box-shadow:
+          inset 0 0 6px rgb(var(--color-error) / 0.15),
+          0 0 6px 2px rgb(var(--color-error) / 0.6);
+      }
+    }
+  }
 }

@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import { page } from '$app/stores'
   import { LogoutButton } from '$lib/features/authenticate'
-  import { SpinnerDialog } from '$lib/widgets/modal'
+  import { SpinnerDialog } from '$lib/widgets/spinner-dialog'
   import { ThemeSwitch } from '$lib/widgets/theme-switch'
 
   onMount(() => {

@@ -27,23 +27,31 @@
     inputElement.classList.add('is-empty')
     dispatch('clear')
   }
+
+  const stateStyles = {
+    default: 'bg-white dark:bg-gray-dark',
+    disabled: 'bg-gray-outline dark:text-gray-dark',
+  }
 </script>
 
 <fieldset class="c-fieldset *:text-nowrap">
   {#if label}
     <label for={id} class="dark:text-gray-light">{label}</label>
   {/if}
-  <div class="c-fieldset__input-weapper *:h-full" class:has-error={hasError}>
-    <!-- NOTE: Need opacity-100 for disabled background-color in iOS -->
+  <div
+    class={`c-fieldset__input-weapper rounded-lg transition-shadow *:h-full ${
+      disabled ? stateStyles.disabled : stateStyles.default
+    }`}
+    class:has-error={hasError}
+    class:border-transparent={readonly}
+  >
     <input
       bind:this={inputElement}
       use:watchEmptyAction
       {id}
       {type}
       {name}
-      class={`peer w-full rounded-lg border border-gray-outline pl-4 pr-10 outline-none transition-shadow 
-        read-only:border-transparent disabled:bg-gray-outline dark:bg-gray-dark dark:disabled:bg-gray-outline
-        dark:text-gray-light dark:disabled:text-gray-dark opacity-100`}
+      class={`peer rounded-lg pl-3 pr-1 outline-none`}
       {placeholder}
       {readonly}
       {disabled}
@@ -51,11 +59,13 @@
     {#if readonly}
       <i
         aria-label="It's read only"
-        class="absolute right-0 top-0 flex items-center pr-2 outline-none *:rounded-full *:text-gray-dark/50 *:dark:text-gray-light"
+        class="c-fieldset__input-icon outline-none *:rounded-full *:text-gray-dark/50 *:dark:text-gray-light"
         ><IconProhibited /></i
       >
     {:else}
-      <ClearButton clear={clearInput} />
+      <span class="c-fieldset__input-icon peer-[.is-empty]:!hidden"
+        ><ClearButton clear={clearInput} /></span
+      >
     {/if}
   </div>
   {#if errors && showError}
@@ -66,77 +76,5 @@
 </fieldset>
 
 <style class="postcss">
-  .c-fieldset {
-    display: grid;
-    grid-template:
-      'label message' 36px
-      'input input' /
-      fit-content(100%) auto;
-    grid-auto-rows: 48px;
-    gap: 8px 16px;
-    width: 100%;
-
-    &__input-weapper {
-      position: relative;
-      grid-area: input;
-      min-height: 48px;
-    }
-
-    & label {
-      display: grid;
-      grid-area: label;
-      grid-template-columns: 24px auto;
-      place-self: center start;
-
-      &::before {
-        justify-self: start;
-        width: 24px;
-        height: 24px;
-        content: '';
-        background-color: rgb(var(--color-gray-outline) / 1);
-        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16 12L10 18V6L16 12Z' fill='currentColor'%3E%3C/path%3E%3C/svg%3E")
-          no-repeat center;
-      }
-    }
-
-    &:focus-within {
-      & label::before {
-        background-color: rgb(var(--color-primary) / 1);
-      }
-
-      & input {
-        border: solid 1px rgb(var(--color-gray-outline) / 0.45);
-        box-shadow:
-          inset 0 0 6px rgb(var(--color-primary-900) / 0.15),
-          0 0 6px 2px rgb(var(--color-primary-600) / 0.15);
-      }
-    }
-
-    &__error-message {
-      grid-area: message;
-      place-self: center start;
-      max-width: 100%;
-      color: rgb(var(--color-error) / 1);
-    }
-
-    /* NOTE: Is 'aria-invalid' not working in iOS? */
-    /* &:has(input[aria-invalid='true']) { */
-    &:has(.has-error) {
-      label,
-      &::placeholder {
-        color: rgb(var(--color-error) / 1);
-      }
-
-      & label::before {
-        background-color: rgb(var(--color-error) / 1);
-      }
-
-      & input {
-        border: solid 1px rgb(var(--color-error) / 1);
-        box-shadow:
-          inset 0 0 6px rgb(var(--color-error) / 0.15),
-          0 0 6px 2px rgb(var(--color-error) / 0.6);
-      }
-    }
-  }
+  /* See app.css */
 </style>
