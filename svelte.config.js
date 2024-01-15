@@ -18,6 +18,10 @@ const config = {
     alias: {
       '@': '/src',
     },
+
+    paths: {
+      base: '/widget',
+    },
   },
 }
 

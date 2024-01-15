@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
+  import { base } from '$app/paths'
   import { page } from '$app/stores'
   import { isDarkMode } from '$lib/entities/app-state'
   import { AnchorButton } from '$lib/shared/ui'
@@ -8,8 +9,8 @@
 
   let isRoot = false
   let showHeaderNav = true
-  $: isRoot = $page.url?.pathname === '/'
-  $: showHeaderNav = $page.url?.pathname !== '/login'
+  $: isRoot = $page.url?.pathname === `${base}/`
+  $: showHeaderNav = !$page.route?.id?.endsWith('login')
 
   const styles = {
     bgBase: 'flex min-h-screen w-screen flex-col',
@@ -34,7 +35,7 @@
   {#if showHeaderNav}
     <nav class={`${styles.navBase} ${isRoot ? '' : styles.navApp}`}>
       {#if isRoot}
-        <AnchorButton to={'/login'} theme={'transparent'} modifireClass={'--top'} noShadow={true}
+        <AnchorButton to={'login'} theme={'transparent'} modifireClass={'--top'} noShadow={true}
           >Log in</AnchorButton
         >
       {/if}

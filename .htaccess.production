@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+    # For single page app
+    # https://kit.svelte.jp/docs/single-page-apps#apache
+    RewriteEngine On
+    RewriteBase /
+    RewriteRule ^index\.html$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /index.html [L]
+
+    # Redirect to JAMStack widget
+    # https://kit.svelte.jp/docs/glossary#ssg
+    # RewriteEngine On
+    # RewriteRule ^ https://ikitell.me/widget
+</IfModule>

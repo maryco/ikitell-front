@@ -28,7 +28,8 @@
         }
       }
 
-      if (window.location.pathname === '/') {
+      const isRoot = window.location.pathname.replace('widget/', '') === '/'
+      if (isRoot) {
         window.addEventListener('DOMContentLoaded', preloadTopBgImage)
         window.addEventListener('preloaded', removeSplash)
       } else {
