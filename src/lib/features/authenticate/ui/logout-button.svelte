@@ -1,10 +1,11 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
+  import { base } from '$app/paths'
   import { authApi } from '$lib/shared/api'
   import { Button } from '$lib/shared/ui'
   import { showSpinner } from '$lib/widgets/spinner-dialog'
 
-  export let to = '/'
+  export let to = `${base}`
 
   async function logout() {
     const res = await authApi.logout()

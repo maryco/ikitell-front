@@ -74,10 +74,10 @@ async function http<T>(path: string, config: RequestInit): Promise<T> {
  */
 function prepareHeaderWithCsrf(): HeadersInit {
   const cookies = document.cookie.split('; ')
-  const xsrf = cookies.find((c) => c.startsWith('XSRF-TOKEN=')) || ''
+  const xsrf = cookies.find((c) => c.startsWith('XSRF-API-TOKEN=')) || ''
   return {
     ...defaultHeader,
-    'X-XSRF-TOKEN': decodeURIComponent(xsrf.replace('XSRF-TOKEN=', '')),
+    'X-XSRF-TOKEN': decodeURIComponent(xsrf.replace('XSRF-API-TOKEN=', '')),
   }
 }
 

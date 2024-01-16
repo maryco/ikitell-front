@@ -3,6 +3,7 @@
   import { createForm } from 'felte'
   import * as zod from 'zod'
   import { goto } from '$app/navigation'
+  import { base } from '$app/paths'
   import { authApi } from '$lib/shared/api'
   import { FieldSetText, Button } from '$lib/shared/ui'
   import { showSpinner } from '$lib/widgets/spinner-dialog'
@@ -25,7 +26,7 @@
       showSpinner.set(false)
 
       if (res?.response.ok) {
-        goto('dashboard', { replaceState: true })
+        goto(`${base}/dashboard`, { replaceState: true })
       } else {
         // TODO: Handle Error
         alert('Fails to login')
