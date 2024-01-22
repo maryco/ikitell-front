@@ -3,13 +3,15 @@
   import { base } from '$app/paths'
   import { authApi } from '$lib/shared/api'
   import { Button } from '$lib/shared/ui'
-  import { showSpinner } from '$lib/widgets/spinner-dialog'
+  import { spinnerStateStore } from '$lib/widgets/spinner-dialog'
 
   export let to = `${base}`
 
   async function logout() {
+    spinnerStateStore.show()
     const res = await authApi.logout()
-    showSpinner.set(false)
+    spinnerStateStore.hide()
+
     if (res?.response.ok) {
       goto(to)
     } else {

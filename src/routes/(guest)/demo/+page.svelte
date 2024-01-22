@@ -3,7 +3,7 @@
   import { createForm } from 'felte'
   import * as zod from 'zod'
   import { FieldSetText, AnchorButton, Button } from '$lib/shared/ui'
-  import { showSpinner } from '$lib/widgets/spinner-dialog'
+  import { spinnerStateStore } from '$lib/widgets/spinner-dialog'
 
   /**
    * Form: https://felte.dev/docs/svelte/getting-started
@@ -51,13 +51,13 @@
         return
       }
 
-      showSpinner.set(true)
+      spinnerStateStore.show()
       await new Promise((resolve) => {
         setTimeout(() => {
           resolve(true)
         }, 3000)
       })
-      showSpinner.set(false)
+      spinnerStateStore.hide()
     },
     initialValues: {
       email: 'email@example.com',

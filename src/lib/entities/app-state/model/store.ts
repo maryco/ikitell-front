@@ -1,7 +1,7 @@
 import { derived, writable } from 'svelte/store'
 import { type Setting, type ColorSchemes, COLOR_SCHEMES } from './type'
 
-function createSetting() {
+function createSettingStore() {
   const { subscribe, update } = writable<Setting>({ theme: null })
 
   const updateTheme = (scheme: string | null) => {
@@ -33,5 +33,5 @@ function createSetting() {
   }
 }
 
-export const setting = createSetting()
+export const setting = createSettingStore()
 export const isDarkMode = derived(setting, ($setting) => $setting.theme === COLOR_SCHEMES.dark)

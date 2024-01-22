@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { showSpinner } from '../store/store'
+  import { spinnerStateStore } from '..'
+  import {} from '../model/store'
   import IkitellFace from './ikitell-face.svelte'
 
   export let label = 'loading'
@@ -12,7 +13,7 @@
   $: isOpen = false
   $: {
     if (dialog) {
-      if ($showSpinner) {
+      if ($spinnerStateStore.visible) {
         isOpen = true
         dialog.showModal()
       } else {

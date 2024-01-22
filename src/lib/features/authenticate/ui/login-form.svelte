@@ -4,13 +4,14 @@
   import * as zod from 'zod'
   import { goto } from '$app/navigation'
   import { base } from '$app/paths'
+  import { userStore } from '$lib/entities/user'
   import { authApi } from '$lib/shared/api'
   import { FieldSetText, Button } from '$lib/shared/ui'
-  import { showSpinner } from '$lib/widgets/spinner-dialog'
+  import { spinnerStateStore } from '$lib/widgets/spinner-dialog'
   import { loginSchema } from '../model/login-form-schema'
 
   $: {
-    showSpinner.set($isSubmitting)
+    $isSubmitting ? spinnerStateStore.show() : spinnerStateStore.hide()
   }
 
   const { form, isValid, isSubmitting, errors, setFields } = createForm<
@@ -23,9 +24,10 @@
       }
 
       const res = await authApi.login(values)
-      showSpinner.set(false)
+      spinnerStateStore.hide()
 
       if (res?.response.ok) {
+        userStore.update((user) => ({ ...user, isAuthenticated: true }))
         goto(`${base}/dashboard`, { replaceState: true })
       } else {
         // TODO: Handle Error
