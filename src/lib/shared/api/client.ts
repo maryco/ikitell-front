@@ -1,3 +1,4 @@
+import { userStore } from '$lib/entities/user'
 import { tokenApi } from './requests/security'
 import { HttpStatusCode } from './types/http-status'
 import { PUBLIC_API_URL, PUBLIC_FRONT_URL } from '$env/static/public'
@@ -50,9 +51,13 @@ async function http<T>(path: string, config: RequestInit): Promise<T> {
     const response = await fetch(request)
 
     if (!response.ok) {
-      // TODO 404, 500 etc...
-      // console.error(`Error: status ${response.status} | message ${response.statusText}`)
-      return makeResponse(response) as T
+      if (isAuthError(response.status)) {
+        userStore.update((user) => ({ ...user, isAuthenticated: false }))
+      }
+
+      const data =
+        response.status === HttpStatusCode.UnprocessableEntity ? await response.json() : {}
+      return makeResponse(response, data?.errors) as T
     }
 
     if (hasNoContent(response.status)) {
@@ -60,8 +65,8 @@ async function http<T>(path: string, config: RequestInit): Promise<T> {
     }
 
     const data = await response.json()
-    return makeResponse(response, data) as T
-    // return { response: response, data: data } as T
+    // NOTE: Unwrap 'data'
+    return makeResponse(response, data.data) as T
   } catch (e: unknown) {
     console.error(`Fetch error: ${e}`)
     return makeResponse(undefined, undefined, e instanceof Error ? e : undefined) as T
@@ -92,7 +97,7 @@ export async function postWithCsrf<T, U>(
   path: string,
   payload: T,
   _init?: RequestInit,
-): Promise<U | undefined> {
+): Promise<U> {
   await tokenApi.getCsrf()
   const init = {
     method: 'post',
@@ -127,6 +132,26 @@ export async function post<T, U>(path: string, payload: T, _init?: RequestInit):
 /**
  *
  * @param path
+ * @param payload
+ * @param _init
+ * @returns
+ */
+export async function putWithCsrf<T, U>(path: string, payload: T, _init?: RequestInit): Promise<U> {
+  await tokenApi.getCsrf()
+  const init = {
+    method: 'put',
+    headers: prepareHeaderWithCsrf(),
+    body: JSON.stringify(payload),
+    credentials: 'include',
+    ..._init,
+  } as RequestInit
+
+  return await http<U>(path, init)
+}
+
+/**
+ *
+ * @param path
  * @param _init
  * @returns
  */
@@ -143,4 +168,9 @@ export async function get<T>(path: string, _init?: RequestInit): Promise<T> {
 
 export const isAuthError = (code: number): boolean => {
   return code === HttpStatusCode.Unauthorized || code === HttpStatusCode.Forbidden
+}
+
+export const isWarningError = (code: number): boolean => {
+  // 422 is validation error
+  return code === HttpStatusCode.UnprocessableEntity
 }
