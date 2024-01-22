@@ -1,7 +1,9 @@
 <script>
   import { onMount } from 'svelte'
   import { page } from '$app/stores'
+  import { isAuthenticated } from '$lib/entities/user'
   import { LogoutButton } from '$lib/features/authenticate'
+  import { ErrorPage } from '$lib/pages/error'
   import { SpinnerDialog } from '$lib/widgets/spinner-dialog'
   import { ThemeSwitch } from '$lib/widgets/theme-switch'
 
@@ -24,6 +26,10 @@
       <ThemeSwitch size={`sm`} iconSize={20} />
     </nav>
   {/if}
-  <slot />
+  {#if $isAuthenticated}
+    <slot />
+  {:else}
+    <ErrorPage />
+  {/if}
 </main>
 <SpinnerDialog />
