@@ -52,6 +52,7 @@
   "type": "module",
   "dependencies": {
     "@felte/validator-zod": "^1.0.17",
+    "date-fns": "^3.3.1",
     "felte": "^1.2.12",
     "zod": "^3.22.4"
   }

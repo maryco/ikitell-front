@@ -2,7 +2,7 @@ import { derived, writable } from 'svelte/store'
 import { type Setting, type ColorSchemes, COLOR_SCHEMES } from './type'
 
 function createSettingStore() {
-  const { subscribe, update } = writable<Setting>({ theme: null })
+  const { subscribe, update } = writable<Setting>({ theme: null, inWarning: false })
 
   const updateTheme = (scheme: string | null) => {
     localStorage.setItem('theme', scheme as ColorSchemes)
@@ -26,12 +26,18 @@ function createSettingStore() {
     return scheme
   }
 
+  const updateAppState = (inWarning: boolean) => {
+    update((items) => ({ ...items, inWarning: inWarning }))
+  }
+
   return {
     subscribe,
     updateTheme,
+    updateAppState,
     load,
   }
 }
 
 export const setting = createSettingStore()
 export const isDarkMode = derived(setting, ($setting) => $setting.theme === COLOR_SCHEMES.dark)
+export const inWarning = derived(setting, ($setting) => $setting.inWarning)

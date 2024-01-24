@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte'
   import { page } from '$app/stores'
+  import { appStateWarning } from '$lib/entities/app-state'
   import { isAuthenticated } from '$lib/entities/user'
   import { LogoutButton } from '$lib/features/authenticate'
   import { ErrorPage } from '$lib/pages/error'
@@ -16,11 +17,12 @@
   })
 </script>
 
-<main class="flex min-h-screen w-screen flex-col">
+<main class="flex min-h-screen w-screen flex-col" class:bg-warning={$appStateWarning}>
   {#if !$page.error}
     <nav
-      class="flex h-[52px] w-full items-center justify-end gap-x-3
-      border-b border-gray-outline bg-gray-light px-[10px] dark:border-none dark:bg-gray-base"
+      class={`flex h-[52px] w-full items-center justify-end gap-x-3 
+        border-gray-outline px-container-x dark:border-none 
+        ${$appStateWarning ? 'bg-gray-dark/60' : 'border-b bg-gray-light dark:bg-gray-base'}`}
     >
       <LogoutButton />
       <ThemeSwitch size={`sm`} iconSize={20} />

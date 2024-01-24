@@ -7,4 +7,5 @@ export type ColorSchemes = keyof typeof COLOR_SCHEMES
 
 export type Setting = {
   theme: ColorSchemes | null
+  inWarning: boolean
 }
