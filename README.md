@@ -2,6 +2,8 @@
 
 SPA for the [ikitell.me](https://ikitell.me)
 
+<img style="display: block; margin: 0 auto;" src="https://un4dc.com/images/demo-reset-timer.gif" width="320px" />
+
 ## Mock-up
 
 - https://ikitell.me/widget
