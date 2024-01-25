@@ -4,9 +4,14 @@ import type { User } from './type'
 function createUserStore() {
   const { subscribe, update } = writable<User>({ isAuthenticated: false })
 
+  const invalidateAuth = () => {
+    update((user) => ({ ...user, isAuthenticated: false }))
+  }
+
   return {
     subscribe,
     update,
+    invalidateAuth,
   }
 }
 

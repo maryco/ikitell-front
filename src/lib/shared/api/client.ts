@@ -1,4 +1,3 @@
-import { userStore } from '$lib/entities/user'
 import { tokenApi } from './requests/security'
 import { HttpStatusCode } from './types/http-status'
 import { PUBLIC_API_URL, PUBLIC_FRONT_URL } from '$env/static/public'
@@ -51,10 +50,6 @@ async function http<T>(path: string, config: RequestInit): Promise<T> {
     const response = await fetch(request)
 
     if (!response.ok) {
-      if (isAuthError(response.status)) {
-        userStore.update((user) => ({ ...user, isAuthenticated: false }))
-      }
-
       const data =
         response.status === HttpStatusCode.UnprocessableEntity ? await response.json() : {}
       return makeResponse(response, data?.errors) as T
@@ -68,7 +63,7 @@ async function http<T>(path: string, config: RequestInit): Promise<T> {
     // NOTE: Unwrap 'data'
     return makeResponse(response, data.data) as T
   } catch (e: unknown) {
-    console.error(`Fetch error: ${e}`)
+    // console.error(`Fetch error: ${e}`)
     return makeResponse(undefined, undefined, e instanceof Error ? e : undefined) as T
   }
 }

@@ -1,6 +1,8 @@
 <script lang="ts">
-  import { invalidate } from '$app/navigation'
+  import { goto, invalidate } from '$app/navigation'
+  import { base } from '$app/paths'
   import { deviceDashboard, type DeviceDashboardSchema } from '$lib/entities/device'
+  import { userStore } from '$lib/entities/user'
   import { deviceApi, http } from '$lib/shared/api'
   import { Button } from '$lib/shared/ui'
   import { spinnerStateStore } from '$lib/widgets/spinner-dialog'
@@ -20,9 +22,10 @@
       }, 300)
     } else if (http.isWarningError(res.response.status)) {
       alert(Object.values(res.data).join('\n'))
+    } else if (http.isAuthError(res.response.status)) {
+      userStore.invalidateAuth()
     } else {
-      // TODO: Handle Error
-      alert('Fails to sending report')
+      goto(`${base}/error`)
     }
   }
 </script>

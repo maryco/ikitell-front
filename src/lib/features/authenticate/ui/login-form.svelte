@@ -5,7 +5,7 @@
   import { goto } from '$app/navigation'
   import { base } from '$app/paths'
   import { userStore } from '$lib/entities/user'
-  import { authApi } from '$lib/shared/api'
+  import { authApi, http } from '$lib/shared/api'
   import { FieldSetText, Button } from '$lib/shared/ui'
   import { spinnerStateStore } from '$lib/widgets/spinner-dialog'
   import { loginSchema } from '../model/login-form-schema'
@@ -26,12 +26,15 @@
       const res = await authApi.login(values)
       spinnerStateStore.hide()
 
-      if (res?.response.ok) {
+      if (res.response.ok) {
         userStore.update((user) => ({ ...user, isAuthenticated: true }))
         goto(`${base}/dashboard`, { replaceState: true })
-      } else {
-        // TODO: Handle Error
+      } else if (http.isWarningError(res.response.status) && res.data) {
+        alert(Object.values(res.data).join('\n'))
+      } else if (http.isAuthError(res.response.status)) {
         alert('Fails to login')
+      } else {
+        goto(`${base}/error`, { replaceState: true })
       }
     },
   })

@@ -1,7 +1,8 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
   import { base } from '$app/paths'
-  import { authApi } from '$lib/shared/api'
+  import { userStore } from '$lib/entities/user'
+  import { authApi, http } from '$lib/shared/api'
   import { Button } from '$lib/shared/ui'
   import { spinnerStateStore } from '$lib/widgets/spinner-dialog'
 
@@ -12,11 +13,12 @@
     const res = await authApi.logout()
     spinnerStateStore.hide()
 
-    if (res?.response.ok) {
+    if (res.response.ok) {
       goto(to)
+    } else if (http.isAuthError(res.response.status)) {
+      userStore.invalidateAuth()
     } else {
-      // TODO: Handle Error
-      alert('Fails to logout')
+      goto(`${base}/error`)
     }
   }
 </script>

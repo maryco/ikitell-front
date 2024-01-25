@@ -5,7 +5,10 @@ import { deviceApi, http } from '$lib/shared/api'
 
 export async function fetchDashboard() {
   const res = await deviceApi.fetchDashboad()
-  if (http.isAuthError(res.response.status)) {
+  if (!res.response.ok) {
+    if (http.isAuthError(res.response.status)) {
+      userStore.invalidateAuth()
+    }
     error(res.response.status as NumericRange<400, 599>, { message: res.response.statusText })
   }
 

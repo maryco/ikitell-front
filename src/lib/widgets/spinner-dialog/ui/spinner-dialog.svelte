@@ -32,7 +32,7 @@
   class="place-content-center overflow-hidden bg-transparent *:transition-transform *:duration-500 open:grid"
 >
   <div class={isOpen ? 'c-spinner scale-1 size-max-content' : 'scale-0'}>
-    <div class="size-[200px]" aria-label={label} aria-busy="true">
+    <div class="size-[200px] select-none" aria-label={label} aria-busy="true">
       <IkitellFace {color} dotColor={color} ariaHidden={true} />
     </div>
   </div>
